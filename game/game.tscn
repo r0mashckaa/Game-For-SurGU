@@ -1,0 +1,157 @@
+[gd_scene load_steps=12 format=3 uid="uid://bhtq6q7ejgb5r"]
+
+[ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://tileset.png" id="1_0sa1k"]
+[ext_resource type="PackedScene" uid="uid://crrhdns2d28w5" path="res://player.tscn" id="2_lsdvn"]
+[ext_resource type="PackedScene" uid="uid://bh2f5ivbe8hgl" path="res://mob.tscn" id="3_coojk"]
+[ext_resource type="PackedScene" uid="uid://clo4d6kab6f04" path="res://mob_spawner.tscn" id="4_yakwj"]
+[ext_resource type="Script" path="res://reset.gd" id="5_jr3w2"]
+[ext_resource type="Script" path="res://state.gd" id="6_2y460"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5nydy"]
+texture = ExtResource("1_0sa1k")
+1:0/0 = 0
+2:0/0 = 0
+1:1/0 = 0
+1:2/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+2:2/0 = 0
+2:1/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+3:0/0 = 0
+3:1/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+4:2/0 = 0
+4:1/0 = 0
+4:0/0 = 0
+1:4/0 = 0
+0:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_7e5j5"]
+sources/0 = SubResource("TileSetAtlasSource_5nydy")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ahc6o"]
+size = Vector2(42, 565.188)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wdvn4"]
+size = Vector2(576, 84)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e6mme"]
+size = Vector2(577, 84)
+
+[node name="scena" type="Node2D"]
+y_sort_enabled = true
+
+[node name="game" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="TileMap" type="TileMap" parent="game"]
+scale = Vector2(3, 3)
+tile_set = SubResource("TileSet_7e5j5")
+format = 2
+layer_0/tile_data = PackedInt32Array(196615, 65536, 2, 262151, 0, 2, 327687, 65536, 2, 393223, 0, 2, 458759, 65536, 2, 524295, 0, 2, 589831, 65536, 2, 655367, 0, 2, 720903, 65536, 2, 196616, 0, 2, 262152, 65536, 2, 327688, 0, 2, 393224, 65536, 2, 458760, 0, 2, 524296, 65536, 2, 589832, 0, 2, 655368, 65536, 2, 720904, 0, 2, 196617, 65536, 2, 262153, 0, 2, 327689, 65536, 2, 458761, 65536, 2, 524297, 0, 2, 589833, 65536, 2, 655369, 0, 2, 720905, 65536, 2, 196618, 0, 2, 262154, 65536, 2, 327690, 0, 2, 393226, 65536, 2, 458762, 0, 2, 524298, 65536, 2, 589834, 0, 2, 655370, 65536, 2, 720906, 0, 2, 196619, 65536, 2, 262155, 0, 2, 327691, 65536, 2, 393227, 0, 2, 458763, 65536, 2, 524299, 0, 2, 589835, 65536, 2, 655371, 0, 2, 720907, 65536, 2, 196620, 0, 2, 262156, 65536, 2, 327692, 0, 2, 393228, 65536, 2, 458764, 0, 2, 524300, 65536, 2, 589836, 0, 2, 655372, 65536, 2, 720908, 0, 2, 196621, 65536, 2, 262157, 0, 2, 327693, 65536, 2, 393229, 0, 2, 458765, 65536, 2, 524301, 0, 2, 589837, 65536, 2, 655373, 0, 2, 720909, 65536, 2, 196622, 0, 2, 262158, 65536, 2, 327694, 0, 2, 393230, 65536, 2, 458766, 0, 2, 524302, 65536, 2, 589838, 0, 2, 655374, 65536, 2, 720910, 0, 2, 196623, 65536, 2, 262159, 0, 2, 327695, 65536, 2, 393231, 0, 2, 458767, 65536, 2, 524303, 0, 2, 589839, 65536, 2, 655375, 0, 2, 720911, 65536, 2, 196624, 0, 2, 262160, 65536, 2, 327696, 0, 2, 393232, 65536, 2, 458768, 0, 2, 524304, 65536, 2, 589840, 0, 2, 655376, 65536, 2, 720912, 0, 2, 393225, 0, 2, 131079, 0, 2, 131080, 65536, 2, 131082, 65536, 2, 131084, 65536, 2, 131086, 65536, 2, 131088, 65536, 2, 131085, 0, 2, 131087, 0, 2, 131083, 0, 2, 131081, 0, 2, 11, 65536, 1, 12, 65536, 1, 786444, 65536, 1, 786443, 65536, 1, 458769, 65536, 1, 393233, 65536, 1, 458758, 65536, 1, 393222, 65536, 1, 327697, 131072, 1, 262161, 131072, 1, 196625, 131072, 1, 131089, 131072, 1, 65553, 131072, 1, 524305, 131072, 1, 589841, 131072, 1, 655377, 131072, 1, 720913, 131072, 1, 720902, 131072, 1, 655366, 131072, 1, 589830, 131072, 1, 524294, 131072, 1, 327686, 131072, 1, 262150, 131072, 1, 196614, 131072, 1, 131078, 131072, 1, 65542, 131072, 1, 6, 196608, 1, 17, 262144, 1, 786438, 196608, 2, 786449, 262144, 2, 786448, 131072, 2, 786447, 131072, 2, 786446, 131072, 2, 786445, 131072, 2, 786442, 131072, 2, 786441, 131072, 2, 786440, 131072, 2, 786439, 131072, 2, 7, 131072, 2, 8, 131072, 2, 9, 131072, 2, 10, 131072, 2, 13, 131072, 2, 14, 131072, 2, 15, 131072, 2, 16, 131072, 2, 851974, 0, 3, 851985, 131072, 3, 65552, 131072, 3, 65543, 0, 3, 65544, 0, 4, 65545, 65536, 3, 65546, 196608, 3, 65547, 262144, 3, 65548, 65536, 3, 65549, 0, 4, 65550, 65536, 3, 65551, 196608, 3, 851984, 0, 4, 851983, 196608, 3, 851982, 65536, 3, 851981, 262144, 3, 851980, 65536, 3, 851979, 65536, 3, 851978, 0, 4, 851977, 65536, 3, 851976, 262144, 3, 851975, 196608, 3)
+layer_1/name = "wall"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 1
+layer_1/tile_data = PackedInt32Array()
+
+[node name="mob_scene" type="Node2D" parent="game"]
+y_sort_enabled = true
+
+[node name="mob_spawner" parent="game/mob_scene" instance=ExtResource("4_yakwj")]
+
+[node name="mob2" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(360, 254)
+mob = "dummy"
+
+[node name="mob" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(504, 110)
+
+[node name="mob3" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(360, 398)
+mob = "dummy"
+
+[node name="mob4" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(792, 254)
+mob = "dummy"
+
+[node name="mob5" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(792, 398)
+mob = "dummy"
+
+[node name="wall" type="Area2D" parent="game"]
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="game/wall"]
+position = Vector2(309, 367.063)
+shape = SubResource("RectangleShape2D_ahc6o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="game/wall"]
+position = Vector2(843, 360.594)
+shape = SubResource("RectangleShape2D_ahc6o")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="game/wall"]
+position = Vector2(576, 42)
+shape = SubResource("RectangleShape2D_wdvn4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="game/wall"]
+position = Vector2(576.5, 618)
+shape = SubResource("RectangleShape2D_e6mme")
+
+[node name="player" parent="game" instance=ExtResource("2_lsdvn")]
+position = Vector2(360, 110)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(576, -160)
+script = ExtResource("5_jr3w2")
+
+[node name="Panel" type="Panel" parent="CharacterBody2D"]
+offset_left = -55.0
+offset_top = -57.0
+offset_right = 54.0
+offset_bottom = 53.0
+
+[node name="resum" type="Button" parent="CharacterBody2D"]
+offset_left = -38.0
+offset_top = -38.0
+offset_right = 37.0
+offset_bottom = -7.0
+text = "resum"
+
+[node name="quit" type="Button" parent="CharacterBody2D"]
+offset_left = -38.0
+offset_top = 7.0
+offset_right = 38.0
+offset_bottom = 38.0
+text = "quit"
+
+[node name="state" type="Node2D" parent="."]
+script = ExtResource("6_2y460")
+
+[node name="xp" type="Label" parent="state"]
+offset_left = 40.0
+offset_top = 1.0
+offset_right = 80.0
+offset_bottom = 27.0
+text = "0"
+
+[node name="wave" type="Label" parent="state"]
+offset_left = 40.0
+offset_top = 29.0
+offset_right = 80.0
+offset_bottom = 55.0
+text = "0
+"
+
+[connection signal="pressed" from="CharacterBody2D/resum" to="CharacterBody2D" method="_on_resum_pressed"]
+[connection signal="pressed" from="CharacterBody2D/quit" to="CharacterBody2D" method="_on_quit_pressed"]

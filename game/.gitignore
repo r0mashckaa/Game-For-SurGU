@@ -1,9 +1,2 @@
-# Ignore everything.
-*
-# Except:
-# Folders (makes un-ignoring files in subfolders possible)
-!*/
-# `.gitignore` file (otherwise, people cloning the repository won't have it)
-!.gitignore
-# `.gdignore` file (to ignore the folder in Godot)
-!.gdignore
+# Godot 4+ specific ignores
+.godot/
