@@ -47,7 +47,6 @@ size = Vector2(576, 84)
 size = Vector2(577, 84)
 
 [node name="scena" type="Node2D"]
-y_sort_enabled = true
 
 [node name="game" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -64,30 +63,6 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
-
-[node name="mob_scene" type="Node2D" parent="game"]
-y_sort_enabled = true
-
-[node name="mob_spawner" parent="game/mob_scene" instance=ExtResource("4_yakwj")]
-
-[node name="mob2" parent="game/mob_scene" instance=ExtResource("3_coojk")]
-position = Vector2(360, 254)
-mob = "dummy"
-
-[node name="mob" parent="game/mob_scene" instance=ExtResource("3_coojk")]
-position = Vector2(504, 110)
-
-[node name="mob3" parent="game/mob_scene" instance=ExtResource("3_coojk")]
-position = Vector2(360, 398)
-mob = "dummy"
-
-[node name="mob4" parent="game/mob_scene" instance=ExtResource("3_coojk")]
-position = Vector2(792, 254)
-mob = "dummy"
-
-[node name="mob5" parent="game/mob_scene" instance=ExtResource("3_coojk")]
-position = Vector2(792, 398)
-mob = "dummy"
 
 [node name="wall" type="Area2D" parent="game"]
 collision_mask = 6
@@ -108,8 +83,32 @@ shape = SubResource("RectangleShape2D_wdvn4")
 position = Vector2(576.5, 618)
 shape = SubResource("RectangleShape2D_e6mme")
 
+[node name="mob_scene" type="Node2D" parent="game"]
+y_sort_enabled = true
+
+[node name="mob_spawner" parent="game/mob_scene" instance=ExtResource("4_yakwj")]
+
+[node name="mob2" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(360, 254)
+mob = "dummy"
+
+[node name="mob" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(504, 206)
+
+[node name="mob3" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(360, 398)
+mob = "dummy"
+
+[node name="mob4" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(792, 254)
+mob = "dummy"
+
+[node name="mob5" parent="game/mob_scene" instance=ExtResource("3_coojk")]
+position = Vector2(792, 398)
+mob = "dummy"
+
 [node name="player" parent="game" instance=ExtResource("2_lsdvn")]
-position = Vector2(360, 110)
+position = Vector2(456, 156)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(576, -160)
@@ -152,6 +151,9 @@ offset_right = 80.0
 offset_bottom = 55.0
 text = "0
 "
+
+[node name="mob" parent="." instance=ExtResource("3_coojk")]
+position = Vector2(456, 254)
 
 [connection signal="pressed" from="CharacterBody2D/resum" to="CharacterBody2D" method="_on_resum_pressed"]
 [connection signal="pressed" from="CharacterBody2D/quit" to="CharacterBody2D" method="_on_quit_pressed"]

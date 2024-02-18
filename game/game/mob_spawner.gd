@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var mob: PackedScene
-var rand
+var rand: int
 var spawn = false
 var x: int
 var y: int

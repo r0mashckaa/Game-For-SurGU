@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://crrhdns2d28w5"]
+[gd_scene load_steps=5 format=3 uid="uid://crrhdns2d28w5"]
 
 [ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://player.png" id="1_offii"]
 [ext_resource type="Script" path="res://player.gd" id="1_rrius"]
@@ -6,18 +6,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pt7xn"]
 size = Vector2(9.33333, 9.33333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q4421"]
-size = Vector2(1, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_arkbr"]
-size = Vector2(2, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pdv0u"]
-size = Vector2(1, 2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h0qf3"]
-size = Vector2(2, 1)
 
 [node name="player" type="CharacterBody2D"]
 scale = Vector2(3, 3)
@@ -38,40 +26,4 @@ collision_mask = 5
 position = Vector2(0, -8.9407e-08)
 shape = SubResource("RectangleShape2D_pt7xn")
 
-[node name="left" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left"]
-position = Vector2(-4.16667, 0)
-shape = SubResource("RectangleShape2D_q4421")
-
-[node name="top" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="top"]
-position = Vector2(0, -4.16667)
-shape = SubResource("RectangleShape2D_arkbr")
-
-[node name="right" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right"]
-position = Vector2(4.16667, 0)
-shape = SubResource("RectangleShape2D_pdv0u")
-
-[node name="botton" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 5
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="botton"]
-position = Vector2(0, 4.16667)
-shape = SubResource("RectangleShape2D_h0qf3")
-
 [connection signal="area_entered" from="player" to="." method="_on_player_area_entered"]
-[connection signal="area_entered" from="left" to="." method="_on_left_area_entered"]
-[connection signal="area_entered" from="top" to="." method="_on_top_area_entered"]
-[connection signal="area_entered" from="right" to="." method="_on_right_area_entered"]
-[connection signal="area_entered" from="botton" to="." method="_on_botton_area_entered"]

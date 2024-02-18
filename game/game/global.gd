@@ -1,16 +1,17 @@
 extends Node
 
 var xod_player = true
-var player_pos
-var player_pos_x
-var player_pos_y
+var player_pos: Vector2
+var player_pos_x: int
+var player_pos_y: int
 var quantity_mob = 0
-var damage
+var damage: int
 var mob_move = 0
 var player_die = false
 var xod_mob = false
-var player_xp
-var wave
+var player_xp: int
+var wave: int
+var label_move = 0
 
 func _physics_process(_delta):
 	#print(Global.quantity_mob)

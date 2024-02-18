@@ -9,7 +9,7 @@ var is_move = false
 @export var cell = 1
 var veloc = 1
 var button = ""
-@export var xp_max = 3
+@export var xp_max = 300
 @onready var xp = xp_max
 @export var damage = 1
 var time = 0.2
@@ -97,33 +97,5 @@ func _on_player_area_entered(area):
 	if Global.xod_player == true && area.name == "wall":
 		can_change_xod = false
 		target = start_target
-
-#func _on_left_area_entered(area):
-	#if Global.xod_player == true && area.name == "mob" && is_move == true:
-		#target += Vector2(48, 0)
-	#if Global.xod_player == true && area.name == "wall":
-		#can_change_xod = false
-		#target += Vector2(48, 0)
-
-#func _on_top_area_entered(area):
-	#if Global.xod_player == true && area.name == "mob" && is_move == true:
-		#target += Vector2(0, 48)
-	#if Global.xod_player == true && area.name == "wall":
-		#can_change_xod = false
-		#target += Vector2(0, 48)
-
-#func _on_botton_area_entered(area):
-	#if Global.xod_player == true && area.name == "mob" && is_move == true:
-		#target -= Vector2(0, 48)
-	#if Global.xod_player == true && area.name == "wall":
-		#can_change_xod = false
-		#target -= Vector2(0, 48)
-
-#func _on_right_area_entered(area):
-	#if Global.xod_player == true && area.name == "mob" && is_move == true:
-		#target -= Vector2(48, 0)
-	#if Global.xod_player == true && area.name == "wall":
-		#can_change_xod = false
-		#target -= Vector2(48, 0)
 
 
