@@ -25,8 +25,10 @@ var no_up = false
 var no_down = false
 var xod_label = false
 var label
+var count
 
 func _ready():
+	#count = Global.count_mob
 	if mob != "dummy":
 		Global.quantity_mob += 1
 		xod_mob = false
@@ -62,6 +64,8 @@ func _stan():
 func  _physics_process(_delta):
 	if Global.xod_player == false && xod_label == false:
 		xod_label = true
+	if Global.xod_player == false && Global.xod_mob == true && xod_label == false:
+		xod_mob = true
 	#if Global.xod_player == false && hit == true:
 	#if Global.xod_player == false && Global.xod_mob == true:
 		#no_move = false
@@ -122,6 +126,9 @@ func _direct():
 		#else:
 			#new_target = target + Vector2(0, -48)
 			#label = "up"
+		#if count == 1:
+			#Global.count_mob = 1
+		#if count == Global.count_mob:
 		new_target = target + Vector2(48, 0)
 		label = "right"
 		_move_label()
@@ -143,58 +150,58 @@ func _direct():
 				veloc = 1
 				direction_push = "left"
 				_move_label()
-				prints(target, new_target)
+				#prints(target, new_target)
 			elif  position.x > Global.player_pos_x + 16 && no_left == false:
 				new_target = target + Vector2(-48, 0)
 				veloc = -1
 				direction_push = "right"
 				_move_label()
-				prints(target, new_target)
+				#prints(target, new_target)
 			elif position.y < Global.player_pos_y && no_down == false:
 				new_target = target + Vector2(0, 48)
 				direction_push = "up"
 				direction_move = false
-				prints(target, new_target)
+				#prints(target, new_target)
 				_move_label()
 				direction_move = false
 			elif position.y > Global.player_pos_y && no_up == false:
 				new_target = target + Vector2(0, -48)
 				direction_push = "down"
 				direction_move = false
-				prints(target, new_target)
+				#prints(target, new_target)
 				direction_move = false
 				_move_label()
 		else:
 			if position.y < Global.player_pos_y - 16 && no_down == false:
 				new_target = target + Vector2(0, 48)
 				direction_push = "up"
-				prints(target, new_target)
+				#prints(target, new_target)
 				_move_label()
 			elif position.y > Global.player_pos_y + 16 && no_up == false:
 				new_target = target + Vector2(0, -48)
 				direction_push = "down"
-				prints(target, new_target)
+				#prints(target, new_target)
 				_move_label()
 			elif position.x < Global.player_pos_x && no_right == false:
 				new_target = target + Vector2(48, 0)
 				veloc = 1
 				direction_push = "left"
-				prints(target, new_target)
+				#prints(target, new_target)
 				direction_move = true
 				_move_label()
 			elif  position.x > Global.player_pos_x && no_left == false:
 				new_target = target + Vector2(-48, 0)
 				veloc = -1
 				direction_push = "right"
-				prints(target, new_target)
+				#prints(target, new_target)
 				direction_move = true
 				_move_label()
-		target = new_target
+		#Global.count_mob += 1
+		#target = new_target
 		#print(target)
 		#print(new_target)
 		#target = new_target
 		await get_tree().create_timer(time).timeout
-		Global.mob_move += 1
 		no_move = true
 		is_move = false
 		xod_label = false
@@ -203,6 +210,16 @@ func _direct():
 func _move_label():
 	$Label.global_position = new_target
 
+func _direct_move():
+	if xod_mob == true && is_move == false && hit == false && Global.player_die == false:
+		is_move = true
+		xod_mob = false
+		#rand = randi_range(1, 2)
+		target = new_target
+		await get_tree().create_timer(time).timeout
+		Global.mob_move += 1
+		no_move = true
+		is_move = false
 
 func _direction():
 	#if Global.xod_player == false && is_move == false && hit == false: #&& no_move == false:
@@ -406,6 +423,7 @@ func _on_rigpush_area_entered(area):
 
 func _golem():
 	_direct()
+	_direct_move()
 
 
 func _on_label_area_entered(area):

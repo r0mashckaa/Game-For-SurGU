@@ -1,4 +1,6 @@
 extends Node2D
 
+@onready var tile_map = $TileMap
+
 func _ready():
-	Global.tile_map = $"../game/TileMap"
+	Global.tile_map = tile_map

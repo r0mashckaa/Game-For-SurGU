@@ -18,10 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://global.gd"
+Xod="*res://xod.gd"
 
 [display]
 
-window/stretch/mode="viewport"
+window/size/window_width_override=1152
+window/stretch/mode="canvas_items"
 
 [input]
 
@@ -57,3 +59,7 @@ ridht={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/size/window_height_override=648
+textures/size/viewport_width=1152
+textures/size/viewport_height=160
+textures/main_scene="res://menu.tscn"

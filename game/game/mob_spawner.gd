@@ -34,6 +34,8 @@ func _spawn():
 			y = (randi_range(110, 542)/48) * 48 + 14
 		mobtemp.position = Vector2(x, y)
 		add_child(mobtemp)
+		#print(Global.count_mob)
+		#Global.count_mob += 1
 	wave += 1
 	Global.wave = wave
 	#print(wave)
