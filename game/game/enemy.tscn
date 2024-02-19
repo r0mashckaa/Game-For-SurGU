@@ -22,4 +22,14 @@ texture = ExtResource("3_oglk6")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
 shape = SubResource("RectangleShape2D_vnjdn")
 
+[node name="Label" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -30.0
+offset_right = 7.0
+offset_bottom = -4.0
+text = "
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]

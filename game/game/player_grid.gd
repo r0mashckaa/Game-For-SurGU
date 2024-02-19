@@ -7,7 +7,8 @@ var is_move = false
 #func _ready():
 	#tile_map = Global.tile_map
 
-
+#func _ready():
+	#Xod.player_pos = global_position
 
 func _physics_process(delta):
 	if Xod.player_xp <= 0:
@@ -41,6 +42,7 @@ func _process(delta):
 
 func _move(direction: Vector2):
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
+	#print(current_tile)
 	var target_tile: Vector2i = Vector2i(current_tile.x + direction.x, current_tile.y + direction.y)
 	#prints(current_tile, target_tile)
 	var tile_data: TileData = tile_map.get_cell_tile_data(0, target_tile)
@@ -56,6 +58,7 @@ func _move(direction: Vector2):
 			return
 		is_move = true
 		global_position = tile_map.map_to_local(target_tile)
+		#Xod.player_pos = global_position
 		sprite.global_position = tile_map.map_to_local(current_tile)
 		#await get_tree().create_timer(0.1).timeout
 		#Xod.xod_player = false

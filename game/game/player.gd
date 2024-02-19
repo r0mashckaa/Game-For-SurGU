@@ -15,6 +15,7 @@ var button = ""
 var time = 0.2
 var can_change_xod = true
 
+
 func _ready():
 	Global.player_pos_x = position.x
 	Global.player_pos_y = position.y
