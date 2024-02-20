@@ -12,7 +12,7 @@ var wave_cout: int
 # layer
 
 func _physics_process(_delta):
-	xp_cout = Xod.player_xp
-	wave_cout = Xod.wave
+	xp_cout = Global.player_xp
+	wave_cout = Global.wave
 	$xp.text = str(xp_cout)
 	$wave.text = "wave: " + str(wave_cout)

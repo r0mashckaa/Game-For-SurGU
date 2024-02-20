@@ -1,102 +1,80 @@
-extends CharacterBody2D
+extends Node2D
 
-@export var speed = 200
-var target_x = position.x
-var target_y = position.y
-@onready var target = position
-@onready var start_target = position
+@onready var tile_map = $"../TileMap"
+@onready var sprite = $Platform
+@onready var raycast = $RayCast2D
 var is_move = false
-@export var cell = 1
-var veloc = 1
-var button = ""
-@export var xp_max = 300
-@onready var xp = xp_max
-@export var damage = 1
-var time = 0.2
-var can_change_xod = true
-
+var direct = 1
+@export var xp_max = 3
 
 func _ready():
-	Global.player_pos_x = position.x
-	Global.player_pos_y = position.y
+	#tile_map = Global.tile_map
 	Global.player_xp = xp_max
-	#print(xp_max)
+	Global.xod_player = false
 
-func  _timer():
-	await get_tree().create_timer(time * cell).timeout
-	is_move = false
-	start_target = target
-	if can_change_xod == true:
-		Global.xod_player = false
+#func _ready():
+	#Xod.player_pos = global_position
+
+func _physics_process(delta):
+	if Global.player_xp <= 0:
+		Global.player_die = true
+		#print(Xod.player_die)
+		queue_free()
+	if is_move == false:
+		return
+	if global_position == sprite.global_position:
+		is_move = false
+		return
+	sprite.global_position = sprite.global_position.move_toward(global_position, 1)
+	if sprite.global_position != global_position:
+		return
+	#await get_tree().create_timer(0.1).timeout
+	Global.xod_player = false
+
+func _flip():
+	if direct == 1:
+		$Platform/Player.flip_h = false
+		$Platform/Player.position.x = 2
 	else:
-		can_change_xod = true
+		$Platform/Player.flip_h = true
+		$Platform/Player.position.x = -2
 
-func  _rotation():
-	if veloc == 1:
-		$Player.flip_h = false
-		$Player.position.x = 2
-	if veloc == -1:
-		$Player.flip_h = true
-		$Player.position.x = -2
+func _process(delta):
+	if is_move == true:
+		return
+	if Global.xod_player == false:
+		return
+	if Input.is_action_just_pressed("up"):
+		_move(Vector2.UP)
+	elif Input.is_action_just_pressed("down"):
+		_move(Vector2.DOWN)
+	elif Input.is_action_just_pressed("left"):
+		_move(Vector2.LEFT)
+		direct = -1
+	elif Input.is_action_just_pressed("ridht"):
+		_move(Vector2.RIGHT)
+		direct = 1
+	_flip()
 
-func get_input():
-	if Global.xod_player == true:
-		if is_move == false:
-			if Input.is_action_just_pressed("left"):
-				is_move = true
-				button = "left"
-				veloc= -1
-				target -= Vector2(48 * cell, 0)
-				_timer()
-			if Input.is_action_just_pressed("ridht"):
-				button = "right"
-				is_move = true
-				veloc = 1
-				target += Vector2(48 * cell, 0)
-				_timer()
-			if Input.is_action_just_pressed("down"):
-				button = "down"
-				is_move = true
-				target += Vector2(0, 48 * cell)
-				_timer()
-			if Input.is_action_just_pressed("up"):
-				button = "up"
-				is_move = true
-				target -= Vector2(0, 48 * cell)
-				_timer()
-
-func  _physics_process(_delta):
-	Global.player_pos = position
-	Global.player_pos_x = position.x
-	Global.player_pos_y = position.y
-	Global.damage = damage
-	#print(Global.quantity_mob)
-	get_input()
-	_move()
-	_rotation()
-	if xp <= 0:
-		_die()
-
-func _die():
-	Global.player_die = true
-	#await get_tree().create_timer(time).timeout
-	#print(Global.player_die)
-	queue_free()
-
-func _move():
-	velocity = global_position.direction_to(target) * speed
-	if global_position.distance_to(target) >= 2:
-		move_and_slide()
-
-func _on_player_area_entered(area):
-	if Global.xod_player == false && area.name == "mob":
-		xp -= 1
-		Global.player_xp = xp
-		#print(xp)
-	if Global.xod_player == true && area.name == "mob" && is_move == true:
-		target = start_target
-	if Global.xod_player == true && area.name == "wall":
-		can_change_xod = false
-		target = start_target
-
-
+func _move(direction: Vector2):
+	var current_tile: Vector2i = tile_map.local_to_map(global_position)
+	#print(current_tile)
+	var target_tile: Vector2i = Vector2i(current_tile.x + direction.x, current_tile.y + direction.y)
+	#prints(current_tile, target_tile)
+	var tile_data: TileData = tile_map.get_cell_tile_data(0, target_tile)
+	if tile_data.get_custom_data("walk") == true:
+		raycast.target_position = direction * 16
+		raycast.force_raycast_update()
+		if raycast.is_colliding():
+			$RayCast2D/player.global_position = $RayCast2D.global_position + direction * 16
+			await get_tree().create_timer(0.1).timeout
+			$RayCast2D/player.global_position = $RayCast2D.global_position
+			await get_tree().create_timer(0.1).timeout
+			Global.xod_player = false
+			return
+		is_move = true
+		global_position = tile_map.map_to_local(target_tile)
+		sprite.global_position = tile_map.map_to_local(current_tile)
+		#await get_tree().create_timer(0.1).timeout
+		
+	#print(Xod.xod_player)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnccpkg8tqvj"]
 
-[ext_resource type="Script" path="res://player_grid.gd" id="1_eyidu"]
+[ext_resource type="Script" path="res://player.gd" id="1_gjvyd"]
 [ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://player.png" id="1_offii"]
 [ext_resource type="Texture2D" uid="uid://qfbngaq8op61" path="res://label.png" id="2_tvrg1"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="3_bq6w3"]
@@ -9,8 +9,7 @@
 size = Vector2(8, 8)
 
 [node name="player" type="Node2D"]
-position = Vector2(56, 72)
-script = ExtResource("1_eyidu")
+script = ExtResource("1_gjvyd")
 
 [node name="Label" type="Sprite2D" parent="."]
 texture = ExtResource("2_tvrg1")

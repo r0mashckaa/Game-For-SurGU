@@ -1,165 +1,35 @@
-[gd_scene load_steps=17 format=3 uid="uid://bh2f5ivbe8hgl"]
+[gd_scene load_steps=5 format=3 uid="uid://b8b6mvf1t3ufr"]
 
-[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="1_l7u6x"]
-[ext_resource type="Script" path="res://mob.gd" id="1_os8sn"]
-[ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://dummy.png" id="2_n8ucw"]
-[ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://golem.png" id="4_50ul4"]
-[ext_resource type="Texture2D" uid="uid://qfbngaq8op61" path="res://label.png" id="5_t5l3r"]
+[ext_resource type="Script" path="res://mob.gd" id="1_1vc4g"]
+[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="2_r507l"]
+[ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://golem.png" id="3_oglk6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_j3qfc"]
-size = Vector2(10.6667, 10.6667)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnjdn"]
+size = Vector2(16, 16)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj3uk"]
-size = Vector2(11.3333, 11.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v2qxb"]
-size = Vector2(11.3333, 11.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1nua"]
-size = Vector2(11.3333, 11.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7yxt"]
-size = Vector2(11.3333, 11.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u8il5"]
-size = Vector2(4.66667, 4)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_48owi"]
-size = Vector2(1, 5.33333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_la4gi"]
-size = Vector2(1, 5.33333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_87srf"]
-size = Vector2(6, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_116ei"]
-size = Vector2(6, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8wvt"]
-size = Vector2(4, 4)
-
-[node name="mob" type="CharacterBody2D"]
-scale = Vector2(3, 3)
-script = ExtResource("1_os8sn")
+[node name="mob" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_1vc4g")
 
 [node name="Platform" type="Sprite2D" parent="."]
-texture = ExtResource("1_l7u6x")
-
-[node name="Dummy" type="Sprite2D" parent="Platform"]
-position = Vector2(0, -4)
-texture = ExtResource("2_n8ucw")
+texture = ExtResource("2_r507l")
 
 [node name="Golem" type="Sprite2D" parent="Platform"]
-visible = false
-position = Vector2(0.666667, -4)
-texture = ExtResource("4_50ul4")
+position = Vector2(1, -4)
+texture = ExtResource("3_oglk6")
 
-[node name="mob" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 3
+[node name="enemy" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="mob"]
-position = Vector2(-2.38419e-07, 2.38419e-07)
-shape = SubResource("RectangleShape2D_j3qfc")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
+shape = SubResource("RectangleShape2D_vnjdn")
 
-[node name="area_for_mob" type="Node2D" parent="."]
+[node name="Label" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -30.0
+offset_right = 7.0
+offset_bottom = -4.0
+text = "
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="right" type="Area2D" parent="area_for_mob"]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="area_for_mob/right"]
-position = Vector2(16, 0)
-shape = SubResource("RectangleShape2D_bj3uk")
-
-[node name="left" type="Area2D" parent="area_for_mob"]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="area_for_mob/left"]
-position = Vector2(-16, 0)
-shape = SubResource("RectangleShape2D_v2qxb")
-
-[node name="up" type="Area2D" parent="area_for_mob"]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="area_for_mob/up"]
-position = Vector2(0, -16)
-shape = SubResource("RectangleShape2D_f1nua")
-
-[node name="down" type="Area2D" parent="area_for_mob"]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="area_for_mob/down"]
-position = Vector2(0, 16)
-shape = SubResource("RectangleShape2D_o7yxt")
-
-[node name="push" type="Node2D" parent="."]
-
-[node name="push" type="Area2D" parent="push"]
-collision_layer = 8
-collision_mask = 16
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="push/push"]
-shape = SubResource("RectangleShape2D_u8il5")
-
-[node name="rigpush" type="Area2D" parent="push"]
-collision_layer = 16
-collision_mask = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="push/rigpush"]
-visibility_layer = 2
-position = Vector2(3.83333, -1.19209e-07)
-shape = SubResource("RectangleShape2D_48owi")
-
-[node name="lefpush" type="Area2D" parent="push"]
-collision_layer = 16
-collision_mask = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="push/lefpush"]
-position = Vector2(-3.83333, 0)
-shape = SubResource("RectangleShape2D_la4gi")
-
-[node name="downpush" type="Area2D" parent="push"]
-collision_layer = 16
-collision_mask = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="push/downpush"]
-position = Vector2(0, 3.5)
-shape = SubResource("RectangleShape2D_87srf")
-
-[node name="uppush" type="Area2D" parent="push"]
-collision_layer = 16
-collision_mask = 9
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="push/uppush"]
-position = Vector2(0, -3.5)
-shape = SubResource("RectangleShape2D_116ei")
-
-[node name="Label" type="Sprite2D" parent="."]
-texture = ExtResource("5_t5l3r")
-
-[node name="label" type="Area2D" parent="Label"]
-collision_layer = 64
-collision_mask = 67
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Label/label"]
-shape = SubResource("RectangleShape2D_k8wvt")
-
-[connection signal="area_entered" from="mob" to="." method="_on_mob_area_entered"]
-[connection signal="area_entered" from="area_for_mob/right" to="." method="_on_right_area_entered"]
-[connection signal="area_exited" from="area_for_mob/right" to="." method="_on_right_area_exited"]
-[connection signal="area_entered" from="area_for_mob/left" to="." method="_on_left_area_entered"]
-[connection signal="area_exited" from="area_for_mob/left" to="." method="_on_left_area_exited"]
-[connection signal="area_entered" from="area_for_mob/up" to="." method="_on_up_area_entered"]
-[connection signal="area_exited" from="area_for_mob/up" to="." method="_on_up_area_exited"]
-[connection signal="area_entered" from="area_for_mob/down" to="." method="_on_down_area_entered"]
-[connection signal="area_exited" from="area_for_mob/down" to="." method="_on_down_area_exited"]
-[connection signal="area_entered" from="push/rigpush" to="." method="_on_rigpush_area_entered"]
-[connection signal="area_entered" from="push/lefpush" to="." method="_on_lefpush_area_entered"]
-[connection signal="area_entered" from="push/downpush" to="." method="_on_downpush_area_entered"]
-[connection signal="area_entered" from="push/uppush" to="." method="_on_uppush_area_entered"]
-[connection signal="area_entered" from="Label/label" to="." method="_on_label_area_entered"]
+[connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]
