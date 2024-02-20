@@ -41,17 +41,18 @@ func _process(delta):
 	if is_move == true:
 		return
 	if Xod.xod_player == true:
+		move = false
 		return
 	if move == true:
-		move = false
 		return
 	_move()
 
 func _move():
 	if stan == true:
-		stan = false
 		#Xod.xod_player = true
 		Xod.move_mob += 1
+		#await get_tree().create_timer(1).timeout
+		stan = false
 		move = true
 		return
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -70,9 +71,9 @@ func _move():
 	if path.size() == 1:
 		#print("i have")
 		$Platform/Golem.visible = false
+		stan = true
 		Xod.player_xp -= 1
 		#print(Xod.player_xp)
-		stan = true
 		#Xod.xod_player = true
 		Xod.move_mob += 1
 		move = true
@@ -85,6 +86,12 @@ func _move():
 		Xod.move_mob += 1
 		move = true
 		return
+	if tile_map.local_to_map(Vector2(global_position.x, 0)) < tile_map.local_to_map(Vector2(player.global_position.x, 0)):
+		$Platform/Golem.flip_h = false
+		$Platform/Golem.position.x = 1
+	elif tile_map.local_to_map(Vector2(global_position.x, 0)) > tile_map.local_to_map(Vector2(player.global_position.x, 0)):
+		$Platform/Golem.flip_h = true
+		$Platform/Golem.position.x = -1
 	var original_position = Vector2(global_position)
 	global_position = tile_map.map_to_local(path[0])
 	#print(global_position)
@@ -101,7 +108,9 @@ func _physics_process(delta):
 		#die = false
 		#Xod.xod_player = true
 		#return
+	
 	if is_move == true:
+		
 		sprite.global_position = sprite.global_position.move_toward(global_position, 1)
 		if sprite.global_position != global_position:
 			return
@@ -128,7 +137,7 @@ func _spawn():
 	var y = randi_range(0, 8) * 16 + 8
 	var spawn_tile: Vector2i = tile_map.local_to_map(Vector2(x, y))
 	var data = tile_map.get_cell_tile_data(0, spawn_tile)
-	while null or not data.get_custom_data("walk"):
+	while null || not data.get_custom_data("walk") || tile_map.local_to_map(Vector2(x, y)) ==  tile_map.local_to_map(player.global_position):
 		x = randi_range(0, 9) * 16 + 8
 		y = randi_range(0, 8) * 16 + 8
 		spawn_tile = tile_map.local_to_map(Vector2(x, y))
@@ -141,4 +150,6 @@ func _spawn():
 	#print(spawn_tile)
 	#Xod.spawn_tile = spawn_tile
 	Xod.quantity_mob += 1
+	if nomber == 1:
+		Xod.wave += 1
 	#print(Xod.quantity_mob)

@@ -1,29 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://crrhdns2d28w5"]
+[gd_scene load_steps=6 format=3 uid="uid://bnccpkg8tqvj"]
 
+[ext_resource type="Script" path="res://player_grid.gd" id="1_eyidu"]
 [ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://player.png" id="1_offii"]
-[ext_resource type="Script" path="res://player.gd" id="1_rrius"]
+[ext_resource type="Texture2D" uid="uid://qfbngaq8op61" path="res://label.png" id="2_tvrg1"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="3_bq6w3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pt7xn"]
-size = Vector2(9.33333, 9.33333)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s7v3b"]
+size = Vector2(8, 8)
 
-[node name="player" type="CharacterBody2D"]
-scale = Vector2(3, 3)
-script = ExtResource("1_rrius")
+[node name="player" type="Node2D"]
+position = Vector2(56, 72)
+script = ExtResource("1_eyidu")
 
-[node name="Player" type="Sprite2D" parent="."]
-position = Vector2(2, -4)
-texture = ExtResource("1_offii")
+[node name="Label" type="Sprite2D" parent="."]
+texture = ExtResource("2_tvrg1")
 
 [node name="Platform" type="Sprite2D" parent="."]
 texture = ExtResource("3_bq6w3")
 
-[node name="player" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 5
+[node name="Player" type="Sprite2D" parent="Platform"]
+position = Vector2(2, -4)
+texture = ExtResource("1_offii")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
-position = Vector2(0, -8.9407e-08)
-shape = SubResource("RectangleShape2D_pt7xn")
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 16)
+collide_with_areas = true
+collide_with_bodies = false
 
-[connection signal="area_entered" from="player" to="." method="_on_player_area_entered"]
+[node name="player" type="Area2D" parent="RayCast2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast2D/player"]
+shape = SubResource("RectangleShape2D_s7v3b")

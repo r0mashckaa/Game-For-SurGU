@@ -4,14 +4,20 @@ extends Node2D
 @onready var sprite = $Platform
 @onready var raycast = $RayCast2D
 var is_move = false
-#func _ready():
+var direct = 1
+@export var xp_max = 3
+
+func _ready():
 	#tile_map = Global.tile_map
+	Xod.player_xp = xp_max
 
 #func _ready():
 	#Xod.player_pos = global_position
 
 func _physics_process(delta):
 	if Xod.player_xp <= 0:
+		Xod.player_die = true
+		#print(Xod.player_die)
 		queue_free()
 	if is_move == false:
 		return
@@ -21,10 +27,17 @@ func _physics_process(delta):
 	sprite.global_position = sprite.global_position.move_toward(global_position, 1)
 	if sprite.global_position != global_position:
 		return
-	await get_tree().create_timer(0.1).timeout
+	#await get_tree().create_timer(0.1).timeout
 	Xod.xod_player = false
+	#Xod.can_xod_player = false
 
-
+func _flip():
+	if direct == 1:
+		$Platform/Player.flip_h = false
+		$Platform/Player.position.x = 2
+	else:
+		$Platform/Player.flip_h = true
+		$Platform/Player.position.x = -2
 
 func _process(delta):
 	if is_move == true:
@@ -37,8 +50,11 @@ func _process(delta):
 		_move(Vector2.DOWN)
 	elif Input.is_action_just_pressed("left"):
 		_move(Vector2.LEFT)
+		direct = -1
 	elif Input.is_action_just_pressed("ridht"):
 		_move(Vector2.RIGHT)
+		direct = 1
+	_flip()
 
 func _move(direction: Vector2):
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
@@ -55,6 +71,7 @@ func _move(direction: Vector2):
 			$RayCast2D/player.global_position = $RayCast2D.global_position
 			await get_tree().create_timer(0.1).timeout
 			Xod.xod_player = false
+			#Xod.can_xod_player = false
 			return
 		is_move = true
 		global_position = tile_map.map_to_local(target_tile)
@@ -62,5 +79,5 @@ func _move(direction: Vector2):
 		sprite.global_position = tile_map.map_to_local(current_tile)
 		#await get_tree().create_timer(0.1).timeout
 		#Xod.xod_player = false
-	
+		
 	#print(Xod.xod_player)
