@@ -14,5 +14,5 @@ var wave_cout: int
 func _physics_process(_delta):
 	xp_cout = Global.player_xp
 	wave_cout = Global.wave
-	$xp.text = str(xp_cout)
-	$wave.text = "wave: " + str(wave_cout)
+	$Xpstatuia/xp.text = str(xp_cout)
+	$Dummy/wave.text = str(wave_cout) #"wave: " + str(wave_cout)

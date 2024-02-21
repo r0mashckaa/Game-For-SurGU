@@ -8,7 +8,8 @@ var move_mob = 0
 var rand: int
 var spawn = false
 var wave = 0
-var player_die
+var player_die = false
+var reset = false
 
 func _process(delta):
 	if move_mob >= quantity_mob:
@@ -16,7 +17,7 @@ func _process(delta):
 		#xod_player = true
 		xod_player = true
 	if quantity_mob <= 0:
-		rand = randi_range(2, 4)
+		rand = randi_range(2, 5)
 		spawn = true
 		#print(rand)
 	if quantity_mob >= rand:

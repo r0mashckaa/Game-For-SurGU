@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://bnccpkg8tqvj"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_gjvyd"]
-[ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://player.png" id="1_offii"]
 [ext_resource type="Texture2D" uid="uid://qfbngaq8op61" path="res://label.png" id="2_tvrg1"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="3_bq6w3"]
+[ext_resource type="Texture2D" uid="uid://dim6mvtlbitk6" path="res://player.png" id="4_0twcq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s7v3b"]
 size = Vector2(8, 8)
@@ -12,14 +12,15 @@ size = Vector2(8, 8)
 script = ExtResource("1_gjvyd")
 
 [node name="Label" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_tvrg1")
 
 [node name="Platform" type="Sprite2D" parent="."]
 texture = ExtResource("3_bq6w3")
 
 [node name="Player" type="Sprite2D" parent="Platform"]
-position = Vector2(2, -4)
-texture = ExtResource("1_offii")
+position = Vector2(0, -4)
+texture = ExtResource("4_0twcq")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 target_position = Vector2(0, 16)

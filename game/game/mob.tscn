@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8b6mvf1t3ufr"]
+[gd_scene load_steps=6 format=3 uid="uid://b8b6mvf1t3ufr"]
 
 [ext_resource type="Script" path="res://mob.gd" id="1_1vc4g"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="2_r507l"]
 [ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://golem.png" id="3_oglk6"]
+[ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://knight.png" id="3_ugqfe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnjdn"]
-size = Vector2(16, 16)
+size = Vector2(14, 14)
 
 [node name="mob" type="Node2D" groups=["enemies"]]
 script = ExtResource("1_1vc4g")
@@ -13,7 +14,13 @@ script = ExtResource("1_1vc4g")
 [node name="Platform" type="Sprite2D" parent="."]
 texture = ExtResource("2_r507l")
 
-[node name="Golem" type="Sprite2D" parent="Platform"]
+[node name="mobs" type="Node2D" parent="Platform"]
+
+[node name="Knight" type="Sprite2D" parent="Platform/mobs"]
+position = Vector2(1, -4)
+texture = ExtResource("3_ugqfe")
+
+[node name="Golem" type="Sprite2D" parent="Platform/mobs"]
 position = Vector2(1, -4)
 texture = ExtResource("3_oglk6")
 
@@ -23,6 +30,7 @@ texture = ExtResource("3_oglk6")
 shape = SubResource("RectangleShape2D_vnjdn")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -7.0
 offset_top = -30.0
 offset_right = 7.0

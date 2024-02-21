@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://duqqi388cfs8f"]
+
+[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://platform.png" id="1_f7t7g"]
+[ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://dummy.png" id="2_j34sb"]
+[ext_resource type="Texture2D" uid="uid://disfxx2jeufh1" path="res://column.png" id="3_jlpef"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fvow2"]
+size = Vector2(14, 14)
+
+[node name="enviroment" type="Node2D" groups=["decors"]]
+
+[node name="Platform" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_f7t7g")
+
+[node name="Dummy" type="Sprite2D" parent="Platform"]
+position = Vector2(0, -4)
+texture = ExtResource("2_j34sb")
+
+[node name="enviroment" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enviroment"]
+shape = SubResource("RectangleShape2D_fvow2")
+
+[node name="Column" type="Sprite2D" parent="."]
+texture = ExtResource("3_jlpef")
