@@ -29,6 +29,7 @@ func _on_resum_pressed():
 	Global.nomber_mob = 1
 	Global.wave = 0
 	Global.reset = false
+	Global.nomber_call_mob = 1
 	await get_tree().create_timer(0.5).timeout
 	#get_tree().change_scene_to_file("res://game.tscn")
 	get_tree().reload_current_scene()

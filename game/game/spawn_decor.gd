@@ -22,5 +22,7 @@ func _ready():
 				if tile_map.local_to_map(Vector2(x, y)) == tile_map.local_to_map(decor.global_position):
 					spawn = false
 					print(spawn)
-			
+			if data == null or not data.get_custom_data("walk"):
+				spawn = false
+				continue
 		temp_decor.global_position = Vector2(x, y)

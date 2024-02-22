@@ -10,7 +10,7 @@ var spawn = false
 var wave = 0
 var player_die
 
-func _process(delta):
+func _process(_delta):
 	if move_mob >= quantity_mob:
 		move_mob = 0
 		#xod_player = true

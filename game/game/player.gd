@@ -22,7 +22,7 @@ func _ready():
 #func _ready():
 	#Xod.player_pos = global_position
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if hit == true:
 		#print(hit)
 		sprite.global_position = sprite.global_position.move_toward(anim_position, 0.2)
@@ -54,7 +54,9 @@ func _flip():
 	else:
 		$Platform/Player.flip_h = true
 
-func _process(delta):
+func _process(_delta):
+	if Global.player_xp > xp_max:
+		Global.player_xp = xp_max
 	if Global.reset == true:
 		return
 	if is_move == true:
@@ -77,7 +79,7 @@ func _process(delta):
 func _move(direction: Vector2):
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
 	#print(current_tile)
-	var target_tile: Vector2i = Vector2i(current_tile.x + direction.x, current_tile.y + direction.y)
+	var target_tile: Vector2 = Vector2(current_tile.x + direction.x, current_tile.y + direction.y)
 	#prints(current_tile, target_tile)
 	var tile_data: TileData = tile_map.get_cell_tile_data(0, target_tile)
 	if tile_data.get_custom_data("walk") == true:
