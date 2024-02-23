@@ -16,6 +16,7 @@ var nomber_call_mob = 1
 var quantity_call_mob = 1
 var call: bool
 var call_tile
+var reset_player: bool
 
 func _process(_delta):
 	if nomber_call_mob > quantity_call_mob:

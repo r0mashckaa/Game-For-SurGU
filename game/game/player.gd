@@ -23,6 +23,10 @@ func _ready():
 	#Xod.player_pos = global_position
 
 func _physics_process(_delta):
+	if Global.reset_player == true:
+		Global.player_xp = xp_max
+		Global.reset_player = false
+		return
 	if hit == true:
 		#print(hit)
 		sprite.global_position = sprite.global_position.move_toward(anim_position, 0.2)
@@ -34,7 +38,9 @@ func _physics_process(_delta):
 	if Global.player_xp <= 0:
 		Global.player_die = true
 		#print(Xod.player_die)
-		queue_free()
+		#queue_free()
+		global_position = Vector2(184, 88)
+		#Global.player_xp = xp_max
 	if is_move == false:
 		return
 	if global_position == sprite.global_position:
@@ -57,6 +63,8 @@ func _flip():
 func _process(_delta):
 	if Global.player_xp > xp_max:
 		Global.player_xp = xp_max
+	if Global.player_die == true:
+		return
 	if Global.reset == true:
 		return
 	if is_move == true:

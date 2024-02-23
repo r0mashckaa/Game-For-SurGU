@@ -2,14 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://tileset.png" id="1_4y4kd"]
 [ext_resource type="PackedScene" uid="uid://bnccpkg8tqvj" path="res://player.tscn" id="2_iggk3"]
-[ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://mob.tscn" id="3_0njbx"]
+[ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://mobs/mob.tscn" id="3_0njbx"]
 [ext_resource type="PackedScene" uid="uid://duqqi388cfs8f" path="res://enviroment.tscn" id="3_iy15y"]
 [ext_resource type="Script" path="res://state.gd" id="4_ho3ft"]
 [ext_resource type="Texture2D" uid="uid://b27u060j47ilh" path="res://xpstatuia.png" id="5_wvlr7"]
 [ext_resource type="Script" path="res://reset.gd" id="6_q6lxg"]
 [ext_resource type="Script" path="res://spawn_decor.gd" id="8_0ffbo"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://dummy.png" id="8_ot3bb"]
-[ext_resource type="PackedScene" uid="uid://hl5mg17c7i23" path="res://call_mob.tscn" id="10_v3nbh"]
+[ext_resource type="PackedScene" uid="uid://hl5mg17c7i23" path="res://mobs/call_mob.tscn" id="10_v3nbh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3embe"]
 texture = ExtResource("1_4y4kd")

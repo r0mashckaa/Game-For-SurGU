@@ -46,7 +46,6 @@ func _process(_delta):
 		Global.nomber_call_mob += 1
 	if die == true:
 		if Global.call == true:
-			
 			_call()
 		return
 	if is_move == true:
@@ -116,13 +115,13 @@ func _move():
 		room += 1
 		move = true
 		#if dead_end != false:
-		if dead_end == false:
-			return
-		if room >= 2:
-			_die()
+		#if dead_end == false:
+			#return
+		#if room >= 2:
+			#_die()
 		return
-	dead_end = false
-	room = 0
+	#dead_end = false
+	#room = 0
 	var original_position = Vector2(global_position)
 	global_position = tile_map.map_to_local(path[0])
 	#print(global_position)
@@ -132,7 +131,7 @@ func _move():
 
 func _physics_process(_delta):
 	## die
-	if xp <= 0 && die == false:
+	if (xp <= 0 && die == false) || Global.player_die == true:
 		_die()
 	## move
 	if is_move == true:
@@ -160,7 +159,7 @@ func _call():
 		xp = 1
 		Global.quantity_call_mob += 1
 		Global.nomber_call_mob += 1
-		print(Global.quantity_call_mob)
+		#print(Global.quantity_call_mob)
 		global_position = tile_map.map_to_local(Global.call_tile)
 		start_position = sprite.global_position
 

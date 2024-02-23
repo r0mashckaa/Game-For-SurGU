@@ -24,12 +24,14 @@ func _move():
 
 func _on_resum_pressed():
 	Global.player_die = false
-	Global.xod_player = true
+	Global.reset = false
+	Global.xod_player = false
+	#Global.player_xp = 3
 	Global.move_mob = 0
 	Global.nomber_mob = 1
 	Global.wave = 0
-	Global.reset = false
 	Global.nomber_call_mob = 1
+	Global.reset_player = true
 	await get_tree().create_timer(0.5).timeout
 	#get_tree().change_scene_to_file("res://game.tscn")
 	get_tree().reload_current_scene()
