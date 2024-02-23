@@ -102,6 +102,7 @@ func _move(direction: Vector2):
 			$RayCast2D/player.global_position = $RayCast2D.global_position
 			await get_tree().create_timer(0.1).timeout
 			hit = false
+			sprite.global_position = global_position
 			Global.xod_player = false
 			return
 		is_move = true

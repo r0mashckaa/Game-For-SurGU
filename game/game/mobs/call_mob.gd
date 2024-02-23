@@ -60,6 +60,7 @@ func _process(_delta):
 func _die():
 	die = true
 	Global.quantity_call_mob -= 1
+	#print(Global.quantity_call_mob)
 	global_position = Vector2(184 + (nomber - 1) * 16, -8)
 
 func _flip():
