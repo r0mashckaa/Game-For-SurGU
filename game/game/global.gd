@@ -17,15 +17,18 @@ var quantity_call_mob = 1
 var call: bool
 var call_tile
 var reset_player: bool
+var place = "menu"
+var tutor_spawn: bool = false
 
 func _process(_delta):
+	#print(place)
 	if nomber_call_mob > quantity_call_mob:
 		call = false
 	if move_mob >= quantity_mob:
 		move_mob = 0
 		#xod_player = true
 		xod_player = true
-	if quantity_mob <= 0:
+	if quantity_mob <= 0 && place == "game":
 		rand = randi_range(range_min, range_max)
 		spawn = true
 		#print(rand)

@@ -1,15 +1,15 @@
 [gd_scene load_steps=13 format=3 uid="uid://ckmae5mbchqu7"]
 
-[ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://tileset.png" id="1_4y4kd"]
-[ext_resource type="PackedScene" uid="uid://bnccpkg8tqvj" path="res://player.tscn" id="2_iggk3"]
-[ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://mob.tscn" id="3_0njbx"]
-[ext_resource type="PackedScene" uid="uid://duqqi388cfs8f" path="res://enviroment.tscn" id="3_iy15y"]
-[ext_resource type="Script" path="res://state.gd" id="4_ho3ft"]
-[ext_resource type="Texture2D" uid="uid://b27u060j47ilh" path="res://xpstatuia.png" id="5_wvlr7"]
-[ext_resource type="Script" path="res://reset.gd" id="6_q6lxg"]
-[ext_resource type="Script" path="res://spawn_decor.gd" id="8_0ffbo"]
-[ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://dummy.png" id="8_ot3bb"]
-[ext_resource type="PackedScene" uid="uid://hl5mg17c7i23" path="res://call_mob.tscn" id="10_v3nbh"]
+[ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://sprites/tileset.png" id="1_4y4kd"]
+[ext_resource type="PackedScene" uid="uid://bnccpkg8tqvj" path="res://nodes/player.tscn" id="2_iggk3"]
+[ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://nodes/mob.tscn" id="3_0njbx"]
+[ext_resource type="PackedScene" uid="uid://duqqi388cfs8f" path="res://nodes/enviroment.tscn" id="3_0v2jt"]
+[ext_resource type="Script" path="res://scripts/state.gd" id="4_ho3ft"]
+[ext_resource type="Texture2D" uid="uid://b27u060j47ilh" path="res://sprites/xpstatuia.png" id="5_wvlr7"]
+[ext_resource type="PackedScene" uid="uid://hl5mg17c7i23" path="res://nodes/call_mob.tscn" id="6_kdv32"]
+[ext_resource type="Script" path="res://scripts/reset.gd" id="6_q6lxg"]
+[ext_resource type="Script" path="res://scripts/spawn_decor.gd" id="8_0ffbo"]
+[ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="9_es3ky"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3embe"]
 texture = ExtResource("1_4y4kd")
@@ -79,46 +79,42 @@ layer_0/tile_data = PackedInt32Array(1, 131072, 3, 2, 131072, 2, 3, 131072, 3, 4
 
 [node name="spawn_decor" type="Node2D" parent="game"]
 script = ExtResource("8_0ffbo")
-enviroment = ExtResource("3_iy15y")
+enviroment = ExtResource("3_0v2jt")
 
 [node name="player" parent="game" instance=ExtResource("2_iggk3")]
 position = Vector2(40, 72)
 
 [node name="mob" parent="game" instance=ExtResource("3_0njbx")]
-position = Vector2(47, 200)
+position = Vector2(26, 199)
 
 [node name="mob2" parent="game" instance=ExtResource("3_0njbx")]
-position = Vector2(63, 200)
+position = Vector2(54, 199)
 
 [node name="mob3" parent="game" instance=ExtResource("3_0njbx")]
-position = Vector2(79, 200)
+position = Vector2(81, 197)
 
 [node name="mob4" parent="game" instance=ExtResource("3_0njbx")]
-position = Vector2(95, 200)
+position = Vector2(113, 197)
 
 [node name="mob5" parent="game" instance=ExtResource("3_0njbx")]
-position = Vector2(111, 200)
+position = Vector2(141, 197)
 
 [node name="call_mob" type="Node2D" parent="game"]
 
-[node name="call_mob" parent="game/call_mob" instance=ExtResource("10_v3nbh")]
-position = Vector2(255, 20)
+[node name="call_mob" parent="game/call_mob" instance=ExtResource("6_kdv32")]
+position = Vector2(192, 51)
 
-[node name="call_mob2" parent="game/call_mob" instance=ExtResource("10_v3nbh")]
-position = Vector2(194, 17)
+[node name="call_mob2" parent="game/call_mob" instance=ExtResource("6_kdv32")]
+position = Vector2(205, 70)
 
-[node name="call_mob3" parent="game/call_mob" instance=ExtResource("10_v3nbh")]
-position = Vector2(212, 43)
+[node name="call_mob3" parent="game/call_mob" instance=ExtResource("6_kdv32")]
+position = Vector2(229, 61)
 
-[node name="call_mob4" parent="game/call_mob" instance=ExtResource("10_v3nbh")]
-position = Vector2(226, 71)
+[node name="call_mob4" parent="game/call_mob" instance=ExtResource("6_kdv32")]
+position = Vector2(209, 18)
 
-[node name="call_mob5" parent="game/call_mob" instance=ExtResource("10_v3nbh")]
-position = Vector2(255, 51)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(80, 71)
-zoom = Vector2(3, 3.1)
+[node name="call_mob5" parent="game/call_mob" instance=ExtResource("6_kdv32")]
+position = Vector2(235, 33)
 
 [node name="state" type="Node2D" parent="."]
 script = ExtResource("4_ho3ft")
@@ -136,7 +132,7 @@ text = "0"
 
 [node name="Dummy" type="Sprite2D" parent="state"]
 position = Vector2(-104, 40)
-texture = ExtResource("8_ot3bb")
+texture = ExtResource("9_es3ky")
 
 [node name="wave" type="Label" parent="state/Dummy"]
 offset_left = 9.0
@@ -146,8 +142,12 @@ offset_bottom = 14.0
 text = "0
 "
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80, 71)
+zoom = Vector2(3, 3.1)
+
 [node name="restart" type="CharacterBody2D" parent="."]
-position = Vector2(77, -108)
+position = Vector2(78, -108)
 scale = Vector2(0.5, 0.5)
 script = ExtResource("6_q6lxg")
 
@@ -155,21 +155,29 @@ script = ExtResource("6_q6lxg")
 offset_left = -55.0
 offset_top = -57.0
 offset_right = 54.0
-offset_bottom = 53.0
+offset_bottom = 56.0
 
 [node name="resum" type="Button" parent="restart"]
 offset_left = -38.0
-offset_top = -38.0
+offset_top = -52.0
 offset_right = 37.0
-offset_bottom = -7.0
+offset_bottom = -21.0
 text = "resum"
 
 [node name="quit" type="Button" parent="restart"]
 offset_left = -38.0
-offset_top = 7.0
+offset_top = 20.0
 offset_right = 38.0
-offset_bottom = 38.0
+offset_bottom = 51.0
 text = "quit"
+
+[node name="menu" type="Button" parent="restart"]
+offset_left = -38.0
+offset_top = -16.0
+offset_right = 38.0
+offset_bottom = 15.0
+text = "menu"
 
 [connection signal="pressed" from="restart/resum" to="restart" method="_on_resum_pressed"]
 [connection signal="pressed" from="restart/quit" to="restart" method="_on_quit_pressed"]
+[connection signal="pressed" from="restart/menu" to="restart" method="_on_menu_pressed"]

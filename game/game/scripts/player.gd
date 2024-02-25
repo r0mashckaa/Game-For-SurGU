@@ -35,7 +35,7 @@ func _physics_process(_delta):
 		shift_x = 0
 		shift_y = 0
 		hit = false
-	if Global.player_xp <= 0:
+	if Global.player_xp <= 0 && Global.place == "game":
 		Global.player_die = true
 		#print(Xod.player_die)
 		#queue_free()
@@ -95,6 +95,7 @@ func _move(direction: Vector2):
 		raycast.force_raycast_update()
 		if raycast.is_colliding():
 			hit = true
+			is_move = true
 			$RayCast2D/player.global_position = $RayCast2D.global_position + direction * 16
 			anim_position = Vector2(start_position * direction * 5)
 			await get_tree().create_timer(0.1).timeout

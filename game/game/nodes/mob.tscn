@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://b8b6mvf1t3ufr"]
+
+[ext_resource type="Script" path="res://scripts/mob.gd" id="1_orrr8"]
+[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="2_kfa2v"]
+[ext_resource type="Texture2D" uid="uid://cql56nqopbpje" path="res://sprites/mobs/necromant.png" id="5_b7nyu"]
+[ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://sprites/mobs/golem.png" id="6_1enhb"]
+[ext_resource type="Texture2D" uid="uid://dhpw8vi6ijcr2" path="res://sprites/mobs/ghost.png" id="6_xlkpw"]
+[ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="7_ns2xs"]
+[ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://sprites/mobs/knight.png" id="7_t3ihs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vnjdn"]
+size = Vector2(14, 14)
+
+[node name="mob" type="Node2D" groups=["enemies"]]
+script = ExtResource("1_orrr8")
+
+[node name="Platform" type="Sprite2D" parent="."]
+texture = ExtResource("2_kfa2v")
+
+[node name="mobs" type="Node2D" parent="Platform"]
+
+[node name="Necromant" type="Sprite2D" parent="Platform/mobs"]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("5_b7nyu")
+
+[node name="Ghost" type="Sprite2D" parent="Platform/mobs"]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("6_xlkpw")
+
+[node name="Dummy" type="Sprite2D" parent="Platform/mobs"]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("7_ns2xs")
+
+[node name="Knight" type="Sprite2D" parent="Platform/mobs"]
+position = Vector2(2, -4)
+texture = ExtResource("7_t3ihs")
+
+[node name="Golem" type="Sprite2D" parent="Platform/mobs"]
+visible = false
+position = Vector2(1, -4)
+texture = ExtResource("6_1enhb")
+
+[node name="enemy" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
+shape = SubResource("RectangleShape2D_vnjdn")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -7.0
+offset_top = -30.0
+offset_right = 7.0
+offset_bottom = -4.0
+text = "
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]

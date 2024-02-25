@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhpw8vi6ijcr2"
-path="res://.godot/imported/ghost.png-142879b86444bb977c34f0e1a3312fda.ctex"
+uid="uid://qfbngaq8op61"
+path="res://.godot/imported/label.png-5a8ca55e1067264359b748a6d4574409.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mobs/ghost.png"
-dest_files=["res://.godot/imported/ghost.png-142879b86444bb977c34f0e1a3312fda.ctex"]
+source_file="res://sprites/label.png"
+dest_files=["res://.godot/imported/label.png-5a8ca55e1067264359b748a6d4574409.ctex"]
 
 [params]
 

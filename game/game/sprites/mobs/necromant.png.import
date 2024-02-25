@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d7orulwfu07p"
-path="res://.godot/imported/golem.png-1cf00e4506dd769502201cd7d0a7aded.ctex"
+uid="uid://cql56nqopbpje"
+path="res://.godot/imported/necromant.png-b35f82b0287365b8cf7c98b841871383.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://golem.png"
-dest_files=["res://.godot/imported/golem.png-1cf00e4506dd769502201cd7d0a7aded.ctex"]
+source_file="res://sprites/mobs/necromant.png"
+dest_files=["res://.godot/imported/necromant.png-b35f82b0287365b8cf7c98b841871383.ctex"]
 
 [params]
 

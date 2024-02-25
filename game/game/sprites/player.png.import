@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnwbamc46mx23"
-path="res://.godot/imported/skelet.png-2655afa5f7c2765c97e919090390fb2a.ctex"
+uid="uid://dim6mvtlbitk6"
+path="res://.godot/imported/player.png-f534b8a02ffb80eefc72936296201445.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mobs/skelet.png"
-dest_files=["res://.godot/imported/skelet.png-2655afa5f7c2765c97e919090390fb2a.ctex"]
+source_file="res://sprites/player.png"
+dest_files=["res://.godot/imported/player.png-f534b8a02ffb80eefc72936296201445.ctex"]
 
 [params]
 

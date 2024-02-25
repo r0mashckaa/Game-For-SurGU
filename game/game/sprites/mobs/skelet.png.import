@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b27u060j47ilh"
-path="res://.godot/imported/xpstatuia.png-b0578493f0e0e863bd870839eb69db2b.ctex"
+uid="uid://cnwbamc46mx23"
+path="res://.godot/imported/skelet.png-cdf80ecc410d9b9715156e93f84317d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://xpstatuia.png"
-dest_files=["res://.godot/imported/xpstatuia.png-b0578493f0e0e863bd870839eb69db2b.ctex"]
+source_file="res://sprites/mobs/skelet.png"
+dest_files=["res://.godot/imported/skelet.png-cdf80ecc410d9b9715156e93f84317d9.ctex"]
 
 [params]
 

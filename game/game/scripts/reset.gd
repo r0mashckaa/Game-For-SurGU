@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 600
 @onready var start = position
 @onready var target = start
-var reset = Vector2(80, 76)
+var reset = Vector2(position.x, position.y + 184)
 #var set = false
 
 func _physics_process(_delta):
@@ -40,3 +40,22 @@ func _on_resum_pressed():
 
 func _on_quit_pressed():
 	get_tree().quit()
+
+
+func _on_menu_pressed():
+	Global.player_die = false
+	Global.reset = false
+	Global.xod_player = false
+	#Global.player_xp = 3
+	Global.move_mob = 0
+	Global.nomber_mob = 1
+	Global.wave = 0
+	Global.nomber_call_mob = 1
+	Global.reset_player = true
+	await get_tree().create_timer(0.5).timeout
+	#get_tree().change_scene_to_file("res://game.tscn")
+	Global.quantity_call_mob = 1
+	Global.quantity_mob = 0
+	#Global.place = "menu"
+	get_tree().change_scene_to_file("res://nodes/menu.tscn")
+	

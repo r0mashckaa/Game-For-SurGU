@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cql56nqopbpje"
-path="res://.godot/imported/necromant.png-9675e5599a2f9860c7a70a3adcbf2ebf.ctex"
+uid="uid://blj1liim06s02"
+path="res://.godot/imported/icon-v1.svg-896f14acdc3e0876888d9e480eddfcce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://mobs/necromant.png"
-dest_files=["res://.godot/imported/necromant.png-9675e5599a2f9860c7a70a3adcbf2ebf.ctex"]
+source_file="res://sprites/icon-v1.svg"
+dest_files=["res://.godot/imported/icon-v1.svg-896f14acdc3e0876888d9e480eddfcce.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

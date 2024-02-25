@@ -381,6 +381,7 @@ func _flip():
 
 func _physics_process(_delta):
 	## die
+	_tutor_spawn()
 	if xp <= 0 && die == false:
 		_die()
 	## move
@@ -407,6 +408,8 @@ func _die():
 		#Global.player_xp += 1
 	Global.quantity_mob -= 1
 	global_position = (Vector2(184 + (nomber - 1) * 16, 136))
+	if Global.place == "tutorial":
+		global_position = $"../knightdie".global_position #Vector2(280, 170)
 
 func _on_enemy_area_entered(area):
 	if area.name == "player":
@@ -415,6 +418,8 @@ func _on_enemy_area_entered(area):
 			_tp()
 
 func _spawn():
+	if Global.place != "game":
+		return
 	if nomber > Global.rand:
 		return
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -488,3 +493,16 @@ func _spawn():
 	if nomber == 1:
 		Global.wave += 1
 	#print(Global.quantity_mob)
+
+func _tutor_spawn():
+	if Global.place == "tutorial":
+		if Global.tutor_spawn == false || die == false:
+			return
+		global_position = $"../knightspawn".global_position
+		xp = 1
+		Global.tutor_spawn = false
+		die = false
+		stan = true
+		mob = "knight"
+		Global.quantity_mob += 1
+		start_position = sprite.global_position
