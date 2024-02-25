@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 600
 @onready var start = position
 @onready var target = start
-var reset = Vector2(80, 68)
+var reset = Vector2(80, 76)
 #var set = false
 
 func _physics_process(_delta):
