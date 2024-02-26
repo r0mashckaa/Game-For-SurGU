@@ -21,12 +21,12 @@ func _spawn():
 	var rand = randi_range(20, 30)
 	for i in range(0, rand):
 		var vid = randi_range(0, 100)
-		if vid <= 40:
+		if vid <= 20:
 		#	Global.enviroment[i] = 2 #"vase"
-			Global.enviroment.append("vase")
-		elif  vid > 40:
-		#	Global.enviroment[i] = 1 #"column"
 			Global.enviroment.append("column")
+		elif  vid > 20:
+		#	Global.enviroment[i] = 1 #"column"
+			Global.enviroment.append("vase")
 		#await get_tree().create_timer(0.1).timeout
 		var temp_decor = enviroment.instantiate()
 		add_child(temp_decor)

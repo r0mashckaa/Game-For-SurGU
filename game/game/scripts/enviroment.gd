@@ -7,13 +7,13 @@ var nomber
 func _ready():
 	nomber = Global.nomber_enviroment
 	Global.nomber_enviroment += 1
-	print(nomber)
-	xp_die = 2
+	
+	xp_die = 1
 
 func _process(_delta):
 	if Global.enviroment_spawn == false:
 		return
-	
+	#print(nomber)
 	for i in range(Global.enviroment.size()):
 		if i != nomber:
 			continue
