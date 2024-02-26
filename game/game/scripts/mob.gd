@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tile_map = $"../TileMap"
+@onready var tile_map = $"../../TileMap"
 @onready var player = $"../player"
 @onready var sprite = $Platform
 var astar_grid: AStarGrid2D
@@ -225,6 +225,7 @@ func _golem():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
+		_atac_flip()
 		## damage
 		$Platform/mobs.visible = false
 		stan = true
@@ -287,6 +288,7 @@ func _knight():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
+		_atac_flip()
 		## damage
 		$Platform/mobs.visible = false
 		stan = true
@@ -341,6 +343,7 @@ func _ghost():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
+		_atac_flip()
 		## damage
 		$Platform/mobs.visible = false
 		#stan = true
@@ -362,6 +365,22 @@ func _ghost():
 	#print(global_position)
 	sprite.global_position = original_position
 	is_move = true
+
+func _atac_flip():
+	if global_position.x < player.global_position.x:
+		$Platform/mobs/Golem.flip_h = false
+		$Platform/mobs/Knight.flip_h = false
+		$Platform/mobs/Necromant.flip_h = false
+		$Platform/mobs/Ghost.flip_h = false
+		$Platform/mobs/Knight.position.x = 2
+		$Platform/mobs/Golem.position.x = 1
+	elif global_position.x > player.global_position.x:
+		$Platform/mobs/Golem.flip_h = true
+		$Platform/mobs/Knight.flip_h = true
+		$Platform/mobs/Necromant.flip_h = true
+		$Platform/mobs/Ghost.flip_h = true
+		$Platform/mobs/Knight.position.x = -2
+		$Platform/mobs/Golem.position.x = -1
 
 func _flip():
 	if sprite.global_position.x < global_position.x:
@@ -409,7 +428,7 @@ func _die():
 	Global.quantity_mob -= 1
 	global_position = (Vector2(184 + (nomber - 1) * 16, 136))
 	if Global.place == "tutorial":
-		global_position = $"../knightdie".global_position #Vector2(280, 170)
+		global_position = $"../../buttons/button_knight/knight_die".global_position #Vector2(280, 170)
 
 func _on_enemy_area_entered(area):
 	if area.name == "player":
@@ -498,7 +517,7 @@ func _tutor_spawn():
 	if Global.place == "tutorial":
 		if Global.tutor_spawn == false || die == false:
 			return
-		global_position = $"../knightspawn".global_position
+		global_position = $"../../buttons/button_knight/knight_spawn".global_position
 		xp = 1
 		Global.tutor_spawn = false
 		die = false

@@ -19,6 +19,14 @@ var call_tile
 var reset_player: bool
 var place = "menu"
 var tutor_spawn: bool = false
+var envir
+var enviroment = []
+var quantity_enviroment = 0
+var nomber_enviroment = 0
+var enviroment_spawn = false
+
+func _ready():
+	enviroment.resize(30)
 
 func _process(_delta):
 	#print(place)

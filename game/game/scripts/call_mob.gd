@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tile_map = $"../../TileMap"
+@onready var tile_map = $"../../../TileMap"
 @onready var player = $"../../player"
 @onready var sprite = $Platform
 var astar_grid: AStarGrid2D
@@ -14,9 +14,9 @@ var room = 0
 var shift = 1
 var animca: bool
 var mob: String
-@onready var enemies = get_tree().get_nodes_in_group("enemies")
-@onready var decors = get_tree().get_nodes_in_group("decors")
-@onready var call_mobs = get_tree().get_nodes_in_group("call_mobs")
+#@onready var enemies = get_tree().get_nodes_in_group("enemies")
+#@onready var decors = get_tree().get_nodes_in_group("decors")
+#@onready var call_mobs = get_tree().get_nodes_in_group("call_mobs")
 var anim_position: Vector2
 var start_position: Vector2
 var dead_end
@@ -78,6 +78,9 @@ func _move():
 		stan = false
 		move = true
 		return
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	var decors = get_tree().get_nodes_in_group("decors")
+	var call_mobs = get_tree().get_nodes_in_group("call_mobs")
 	var occupied_positions = []
 	for enemy in enemies:
 		if enemy == self:

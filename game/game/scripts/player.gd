@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var tile_map = $"../TileMap"
+@onready var tile_map = $"../../TileMap"
 @onready var sprite = $Platform
 @onready var raycast = $RayCast2D
 var is_move = false

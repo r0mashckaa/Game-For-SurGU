@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://duqqi388cfs8f"]
+[gd_scene load_steps=7 format=3 uid="uid://duqqi388cfs8f"]
 
+[ext_resource type="Script" path="res://scripts/enviroment.gd" id="1_j34ru"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="1_m7vyp"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="2_j34sb"]
 [ext_resource type="Texture2D" uid="uid://disfxx2jeufh1" path="res://sprites/column.png" id="3_jlpef"]
+[ext_resource type="Texture2D" uid="uid://c4vjygnt41fro" path="res://sprites/vase.png" id="4_kdnwp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvow2"]
 size = Vector2(14, 14)
 
 [node name="enviroment" type="Node2D" groups=["decors"]]
+script = ExtResource("1_j34ru")
 
 [node name="Platform" type="Sprite2D" parent="."]
 visible = false
@@ -23,4 +26,10 @@ texture = ExtResource("2_j34sb")
 shape = SubResource("RectangleShape2D_fvow2")
 
 [node name="Column" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("3_jlpef")
+
+[node name="Vase" type="Sprite2D" parent="."]
+texture = ExtResource("4_kdnwp")
+
+[connection signal="area_entered" from="enviroment" to="." method="_on_enviroment_area_entered"]
