@@ -91,6 +91,8 @@ func _move(direction: Vector2):
 	#prints(current_tile, target_tile)
 	var tile_data: TileData = tile_map.get_cell_tile_data(0, target_tile)
 	if tile_data.get_custom_data("walk") == true:
+		if Global.respawn == true:
+			Global.set = true
 		raycast.target_position = direction * 16
 		raycast.force_raycast_update()
 		if raycast.is_colliding():

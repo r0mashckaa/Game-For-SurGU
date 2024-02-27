@@ -11,22 +11,17 @@ var wave = 0
 var player_die = false
 var reset = false
 var range_min = 2
-var range_max = 5
+var range_max = 3
 var nomber_call_mob = 1
 var quantity_call_mob = 1
 var call: bool
 var call_tile
 var reset_player: bool
 var place = "menu"
-var tutor_spawn: bool = false
-var envir
-var enviroment = []
-var quantity_enviroment = 0
-var nomber_enviroment = 0
-var enviroment_spawn = false
-
-func _ready():
-	enviroment.resize(30)
+var knight_spawn = false
+var golem_spawn = false
+var set = true
+var respawn
 
 func _process(_delta):
 	#print(place)
@@ -37,8 +32,18 @@ func _process(_delta):
 		#xod_player = true
 		xod_player = true
 	if quantity_mob <= 0 && place == "game":
-		rand = randi_range(range_min, range_max)
+		var wave_min: int = wave/10
+		var wave_max: int = wave/5
+		respawn = true
+		#prints(wave_min, wave_max)
+		if set == false:
+			return
+		set = false
+		#await get_tree().create_timer(0.1).timeout
+		prints(range_min + wave_min, range_max + wave_max)
+		rand = randi_range(range_min + wave_min, range_max + wave_max)
 		spawn = true
+		respawn = false
 		#print(rand)
 	if quantity_mob >= rand:
 		spawn = false

@@ -30,6 +30,7 @@ visible = false
 texture = ExtResource("3_jlpef")
 
 [node name="Vase" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("4_kdnwp")
 
 [connection signal="area_entered" from="enviroment" to="." method="_on_enviroment_area_entered"]

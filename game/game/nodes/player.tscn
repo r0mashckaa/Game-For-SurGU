@@ -15,6 +15,7 @@ size = Vector2(8, 8)
 script = ExtResource("1_s15e6")
 
 [node name="Label" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_8q5wv")
 
 [node name="Platform" type="Sprite2D" parent="."]

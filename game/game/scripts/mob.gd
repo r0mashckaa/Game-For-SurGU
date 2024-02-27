@@ -400,6 +400,7 @@ func _flip():
 
 func _physics_process(_delta):
 	## die
+	_mob()
 	_tutor_spawn()
 	if xp <= 0 && die == false:
 		_die()
@@ -407,11 +408,12 @@ func _physics_process(_delta):
 	if is_move == true:
 		sprite.global_position = sprite.global_position.move_toward(global_position, 1)
 		_flip()
+		Global.move_mob += 1
 		if sprite.global_position != global_position:
 			return
 		start_position = sprite.global_position
 		is_move = false
-		Global.move_mob += 1
+		
 		move = true
 	## animation
 	if Global.xod_player == true && stan == false && die == false && Global.player_die == false && Global.reset == false:
@@ -426,15 +428,41 @@ func _die():
 	#if mob == "necromant":
 		#Global.player_xp += 1
 	Global.quantity_mob -= 1
-	global_position = (Vector2(184 + (nomber - 1) * 16, 136))
+	if nomber <= 5:
+		global_position = (Vector2(-88 + (nomber - 1) * 16, 136))
+	else:
+		global_position = (Vector2(184 + (nomber - 6) * 16, 136))
 	if Global.place == "tutorial":
-		global_position = $"../../buttons/button_knight/knight_die".global_position #Vector2(280, 170)
+		tutor_die()
+		
 
 func _on_enemy_area_entered(area):
 	if area.name == "player":
 		xp -= 1
 		if mob == "necromant":
 			_tp()
+
+func _mob():
+	if mob == "knight":
+		$Platform/mobs/Knight.visible = true
+		$Platform/mobs/Golem.visible = false
+		$Platform/mobs/Necromant.visible = false
+		$Platform/mobs/Ghost.visible = false
+	elif mob == "golem":
+		$Platform/mobs/Golem.visible = true
+		$Platform/mobs/Knight.visible = false
+		$Platform/mobs/Necromant.visible = false
+		$Platform/mobs/Ghost.visible = false
+	elif  mob == "ghost":
+		$Platform/mobs/Ghost.visible = true
+		$Platform/mobs/Golem.visible = false
+		$Platform/mobs/Knight.visible = false
+		$Platform/mobs/Necromant.visible = false
+	elif mob == "necromant":
+		$Platform/mobs/Necromant.visible = true
+		$Platform/mobs/Golem.visible = false
+		$Platform/mobs/Knight.visible = false
+		$Platform/mobs/Ghost.visible = false
 
 func _spawn():
 	if Global.place != "game":
@@ -475,31 +503,15 @@ func _spawn():
 	#print(rand)
 	if rand <= 30:
 		mob = "golem"
-		$Platform/mobs/Golem.visible = true
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Necromant.visible = false
-		$Platform/mobs/Ghost.visible = false
 		xp = 3
 	elif rand <= 65:
 		mob = "knight"
-		$Platform/mobs/Knight.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Necromant.visible = false
-		$Platform/mobs/Ghost.visible = false
 		xp = 1
 	elif rand <= 75:
 		mob = "necromant"
-		$Platform/mobs/Necromant.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Ghost.visible = false
 		xp = 2
 	elif rand > 75:
 		mob = "ghost"
-		$Platform/mobs/Ghost.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Necromant.visible = false
 		xp = 1
 	global_position = Vector2(x, y)
 	#prints(position, global_position, tile_map.local_to_map(global_position), tile_map.local_to_map(spawn_tile))
@@ -515,13 +527,29 @@ func _spawn():
 
 func _tutor_spawn():
 	if Global.place == "tutorial":
-		if Global.tutor_spawn == false || die == false:
-			return
-		global_position = $"../../buttons/button_knight/knight_spawn".global_position
-		xp = 1
-		Global.tutor_spawn = false
-		die = false
-		stan = true
-		mob = "knight"
-		Global.quantity_mob += 1
-		start_position = sprite.global_position
+		if nomber == 1:
+			mob = "knight"
+		elif nomber == 2:
+			mob = "golem"
+		if Global.knight_spawn == true && die == true && mob == "knight":
+			global_position = $"../../buttons/button_knight/knight_spawn".global_position
+			xp = 1
+			Global.knight_spawn = false
+			die = false
+			stan = true
+			Global.quantity_mob += 1
+			start_position = sprite.global_position
+		if Global.golem_spawn == true && die == true && mob == "golem":
+			global_position = $"../../buttons/button_golem/golem_spawn".global_position
+			xp = 3
+			Global.golem_spawn = false
+			die = false
+			stan = true
+			Global.quantity_mob += 1
+			start_position = sprite.global_position
+
+func tutor_die():
+	if mob == "knight":
+		global_position = $"../../buttons/button_knight/knight_die".global_position
+	if mob == "golem":
+		global_position = $"../../buttons/button_golem/golem_die".global_position

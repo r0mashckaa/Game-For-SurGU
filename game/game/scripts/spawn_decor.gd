@@ -6,28 +6,8 @@ extends Node2D
 var spawner = false
 
 func _ready():
-	for i in range(0, 30):
-		var temp_decor = enviroment.instantiate()
-		add_child(temp_decor)
-		temp_decor.global_position = Vector2(-120, 0)
-
-func _process(_delta):
-	if spawner == true:
-		return
-	_spawn()
-
-func _spawn():
-	spawner = true
 	var rand = randi_range(20, 30)
 	for i in range(0, rand):
-		var vid = randi_range(0, 100)
-		if vid <= 20:
-		#	Global.enviroment[i] = 2 #"vase"
-			Global.enviroment.append("column")
-		elif  vid > 20:
-		#	Global.enviroment[i] = 1 #"column"
-			Global.enviroment.append("vase")
-		#await get_tree().create_timer(0.1).timeout
 		var temp_decor = enviroment.instantiate()
 		add_child(temp_decor)
 		var x = randi_range(0, 9) * 16 + 8
@@ -47,4 +27,6 @@ func _spawn():
 				spawn = false
 				continue
 		temp_decor.global_position = Vector2(x, y)
-	Global.enviroment_spawn = true
+		#print(i)
+	#prints("rand", rand)
+
