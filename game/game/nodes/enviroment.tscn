@@ -1,13 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://duqqi388cfs8f"]
+[gd_scene load_steps=9 format=3 uid="uid://duqqi388cfs8f"]
 
 [ext_resource type="Script" path="res://scripts/enviroment.gd" id="1_j34ru"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="1_m7vyp"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="2_j34sb"]
 [ext_resource type="Texture2D" uid="uid://disfxx2jeufh1" path="res://sprites/column.png" id="3_jlpef"]
 [ext_resource type="Texture2D" uid="uid://c4vjygnt41fro" path="res://sprites/vase.png" id="4_kdnwp"]
+[ext_resource type="Texture2D" uid="uid://djhfdbgdd15u0" path="res://sprites/thorns.png" id="6_6h27u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvow2"]
 size = Vector2(14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wxun"]
+atlas = ExtResource("6_6h27u")
+region = Rect2(0, 0, 16, 16)
 
 [node name="enviroment" type="Node2D" groups=["decors"]]
 script = ExtResource("1_j34ru")
@@ -32,5 +37,9 @@ texture = ExtResource("3_jlpef")
 [node name="Vase" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("4_kdnwp")
+
+[node name="thorns" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_3wxun")
 
 [connection signal="area_entered" from="enviroment" to="." method="_on_enviroment_area_entered"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://ckmae5mbchqu7"]
+[gd_scene load_steps=14 format=3 uid="uid://ckmae5mbchqu7"]
 
 [ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://sprites/tileset.png" id="1_4y4kd"]
+[ext_resource type="PackedScene" uid="uid://bff6f675uebmi" path="res://nodes/label.tscn" id="2_godww"]
 [ext_resource type="PackedScene" uid="uid://bnccpkg8tqvj" path="res://nodes/player.tscn" id="2_iggk3"]
 [ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://nodes/mob.tscn" id="3_0njbx"]
 [ext_resource type="PackedScene" uid="uid://duqqi388cfs8f" path="res://nodes/enviroment.tscn" id="3_0v2jt"]
@@ -164,6 +165,8 @@ text = "0
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(80, 71)
 zoom = Vector2(3, 3.1)
+
+[node name="label" parent="." instance=ExtResource("2_godww")]
 
 [node name="restart" type="CharacterBody2D" parent="."]
 position = Vector2(78, -108)

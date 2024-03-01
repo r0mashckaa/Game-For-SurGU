@@ -9,15 +9,21 @@ func _ready():
 	if rand <= 30:
 	#	Global.enviroment[i] = 2 #"vase"
 		vid  = "column"
-	elif  rand > 30:
+	elif  rand <= 80:
 	#	Global.enviroment[i] = 1 #"column"
 		vid = "vase"
+	elif rand > 80:
+		vid = "thorns"
 	if vid == "vase":
 		$Vase.visible = true
 		#$Column.visible = false
 	elif  vid == "column":
 		$Column.visible = true
 		#$Vase.visible = false
+	elif vid == "thorns":
+		$thorns.visible = true
+		$enviroment/CollisionShape2D.disabled = true
+		
 
 func _physics_process(_delta):
 	if xp_die >= 1:

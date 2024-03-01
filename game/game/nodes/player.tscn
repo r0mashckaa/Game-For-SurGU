@@ -14,8 +14,10 @@ size = Vector2(8, 8)
 [node name="player" type="Node2D"]
 script = ExtResource("1_s15e6")
 
-[node name="Label" type="Sprite2D" parent="."]
+[node name="label" type="Node2D" parent="."]
 visible = false
+
+[node name="Label" type="Sprite2D" parent="label"]
 texture = ExtResource("2_8q5wv")
 
 [node name="Platform" type="Sprite2D" parent="."]

@@ -3,15 +3,18 @@ extends Node2D
 @onready var tile_map = $"../../TileMap"
 @onready var sprite = $Platform
 @onready var raycast = $RayCast2D
+var lable: bool = true
+var lable_move: bool = true
 var is_move = false
 var direct = 1
 var hit: bool
-var hit_end: bool
 @export var xp_max = 3
 var start_position
 var anim_position
 var shift_x
 var shift_y
+var veloc = global_position
+@onready var mouse = get_global_mouse_position()
 
 func _ready():
 	#tile_map = Global.tile_map
@@ -22,7 +25,57 @@ func _ready():
 #func _ready():
 	#Xod.player_pos = global_position
 
+func _label_move():
+	pass
+
+func _label():
+	if lable_move == false:
+		return
+	if lable == true:
+		lable_move = false
+		$label/Label.position.y += 1
+		lable = false
+		await get_tree().create_timer(1).timeout
+		lable_move = true
+		return
+	if lable == false:
+		lable_move = false
+		$label/Label.position.y -= 1
+		lable = true
+		await get_tree().create_timer(1).timeout
+		lable_move = true
+		return
+
 func _physics_process(_delta):
+	_label()
+	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
+	if mouse != get_global_mouse_position() && Global.player_die == false:
+		mouse = get_global_mouse_position()
+		Global.label = true
+	var mouse_x = get_global_mouse_position().x - global_position.x
+	var mouse_y = get_global_mouse_position().y - global_position.y
+	if tile_map.local_to_map(get_global_mouse_position()) == tile_map.local_to_map(global_position):
+		$label.global_position = global_position
+		veloc = Vector2.ZERO
+	elif abs(mouse_x) > abs(mouse_y):
+		#print(1)
+		if mouse_x > 0:
+			$label.global_position = Vector2(global_position.x + 16, global_position.y)
+			veloc = Vector2.RIGHT
+			#direct = 1
+		elif mouse_x < 0:
+			$label.global_position = Vector2(global_position.x - 16, global_position.y)
+			veloc = Vector2.LEFT
+			#direct = -1
+	elif abs(mouse_x) < abs(mouse_y):
+		#print(0)
+		if mouse_y > 0:
+			$label.global_position = Vector2(global_position.x, global_position.y + 16)
+			veloc = Vector2.DOWN
+		elif mouse_y < 0:
+			$label.global_position = Vector2(global_position.x, global_position.y - 16)
+			veloc = Vector2.UP
+		#label_tile_data.get_custom_data("walk") == true
 	if Global.reset_player == true:
 		Global.player_xp = xp_max
 		Global.reset_player = false
@@ -50,7 +103,6 @@ func _physics_process(_delta):
 	if sprite.global_position != global_position:
 		return
 	start_position = sprite.global_position
-	hit_end = true
 	#await get_tree().create_timer(0.1).timeout
 	Global.xod_player = false
 
@@ -72,16 +124,27 @@ func _process(_delta):
 	if Global.xod_player == false:
 		hit = false
 		return
-	if Input.is_action_just_pressed("down"):
+	if Input.is_action_just_pressed("click"):
+		if veloc == Vector2.RIGHT:
+			direct = 1
+		elif veloc == Vector2.LEFT:
+			direct = -1
+		_move(veloc)
+		Global.label = true
+	elif Input.is_action_just_pressed("down"):
 		_move(Vector2.DOWN)
+		Global.label = false
 	elif Input.is_action_just_pressed("up"):
 		_move(Vector2.UP)
+		Global.label = false
 	elif Input.is_action_just_pressed("left"):
 		_move(Vector2.LEFT)
 		direct = -1
+		Global.label = false
 	elif Input.is_action_just_pressed("ridht"):
 		_move(Vector2.RIGHT)
 		direct = 1
+		Global.label = false
 	_flip()
 
 func _move(direction: Vector2):

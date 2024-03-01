@@ -3,8 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://sprites/tileset.png" id="1_govcn"]
 [ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_sd5ac"]
 [ext_resource type="PackedScene" uid="uid://bnccpkg8tqvj" path="res://nodes/player.tscn" id="2_4t7oa"]
+[ext_resource type="PackedScene" uid="uid://bff6f675uebmi" path="res://nodes/label.tscn" id="3_bksrb"]
 [ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://nodes/mob.tscn" id="3_n70pf"]
-[ext_resource type="PackedScene" uid="uid://duqqi388cfs8f" path="res://nodes/enviroment.tscn" id="4_dajsb"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="5_a3xx1"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="6_2it4d"]
 [ext_resource type="Script" path="res://scripts/reset.gd" id="6_rinrb"]
@@ -143,6 +143,8 @@ position = Vector2(48, 48)
 [node name="golem_die" type="Marker2D" parent="buttons/button_golem"]
 position = Vector2(-34, 0)
 
+[node name="label" parent="." instance=ExtResource("3_bksrb")]
+
 [node name="tutorial" type="Node2D" parent="."]
 y_sort_enabled = true
 
@@ -158,15 +160,7 @@ position = Vector2(184, 168)
 [node name="dummys" type="Node2D" parent="tutorial"]
 y_sort_enabled = true
 
-[node name="enviroment" parent="tutorial/dummys" instance=ExtResource("4_dajsb")]
-visible = false
-position = Vector2(248, 136)
-
-[node name="enviroment2" parent="tutorial/dummys" instance=ExtResource("4_dajsb")]
-visible = false
-position = Vector2(136, 136)
-
-[node name="dummy" type="Node2D" parent="tutorial/dummys"]
+[node name="dummy" type="Node2D" parent="tutorial/dummys" groups=["decors"]]
 position = Vector2(136, 136)
 
 [node name="Platform" type="Sprite2D" parent="tutorial/dummys/dummy"]
@@ -183,7 +177,7 @@ position = Vector2(0, -1)
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ogjb0")
 
-[node name="dummy2" type="Node2D" parent="tutorial/dummys"]
+[node name="dummy2" type="Node2D" parent="tutorial/dummys" groups=["decors"]]
 position = Vector2(248, 136)
 
 [node name="Platform" type="Sprite2D" parent="tutorial/dummys/dummy2"]
