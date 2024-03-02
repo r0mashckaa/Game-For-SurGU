@@ -28,6 +28,7 @@ position = Vector2(0, -4)
 texture = ExtResource("4_yegw1")
 
 [node name="press" type="Area2D" parent="Platform"]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platform/press"]
 shape = SubResource("RectangleShape2D_pn08w")
@@ -41,3 +42,5 @@ collide_with_bodies = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast2D/player"]
 shape = SubResource("RectangleShape2D_s7v3b")
+
+[connection signal="area_entered" from="Platform/press" to="." method="_on_press_area_entered"]

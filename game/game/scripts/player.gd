@@ -26,29 +26,6 @@ func _ready():
 	#Xod.player_pos = global_position
 
 func _label_move():
-	pass
-
-func _label():
-	if lable_move == false:
-		return
-	if lable == true:
-		lable_move = false
-		$label/Label.position.y += 1
-		lable = false
-		await get_tree().create_timer(1).timeout
-		lable_move = true
-		return
-	if lable == false:
-		lable_move = false
-		$label/Label.position.y -= 1
-		lable = true
-		await get_tree().create_timer(1).timeout
-		lable_move = true
-		return
-
-func _physics_process(_delta):
-	_label()
-	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
 	if mouse != get_global_mouse_position() && Global.player_die == false:
 		mouse = get_global_mouse_position()
 		Global.label = true
@@ -76,9 +53,32 @@ func _physics_process(_delta):
 			$label.global_position = Vector2(global_position.x, global_position.y - 16)
 			veloc = Vector2.UP
 		#label_tile_data.get_custom_data("walk") == true
+
+func _label():
+	if lable_move == false:
+		return
+	if lable == true:
+		lable_move = false
+		$label/Label.position.y += 1
+		lable = false
+		await get_tree().create_timer(1).timeout
+		lable_move = true
+		return
+	if lable == false:
+		lable_move = false
+		$label/Label.position.y -= 1
+		lable = true
+		await get_tree().create_timer(1).timeout
+		lable_move = true
+		return
+
+func _physics_process(_delta):
+	_label()
+	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
+	_label_move()
 	if Global.reset_player == true:
 		Global.player_xp = xp_max
-		Global.reset_player = false
+		#Global.reset_player = false
 		return
 	if hit == true:
 		#print(hit)
@@ -92,7 +92,7 @@ func _physics_process(_delta):
 		Global.player_die = true
 		#print(Xod.player_die)
 		#queue_free()
-		global_position = Vector2(184, 88)
+		global_position = Vector2(200, 104)
 		#Global.player_xp = xp_max
 	if is_move == false:
 		return
@@ -177,3 +177,8 @@ func _move(direction: Vector2):
 		#await get_tree().create_timer(0.1).timeout
 		
 	#print(Xod.xod_player)
+
+
+func _on_press_area_entered(area):
+	if area.name == "spikes":
+		Global.player_xp -= 1

@@ -24,7 +24,7 @@ var cooldown = 3
 
 func _ready():
 	nomber = Global.nomber_call_mob
-	global_position = Vector2(184 + (nomber - 1) * 16, -8)
+	global_position = Vector2(200 + (nomber - 1) * 16, 8)
 	Global.nomber_call_mob += 1
 	$Label.text = (str(nomber))
 	astar_grid = AStarGrid2D.new()
@@ -61,7 +61,7 @@ func _die():
 	die = true
 	Global.quantity_call_mob -= 1
 	#print(Global.quantity_call_mob)
-	global_position = Vector2(184 + (nomber - 1) * 16, -8)
+	global_position = Vector2(200 + (nomber - 1) * 16, 8)
 
 func _flip():
 	if sprite.global_position.x < global_position.x:
@@ -135,7 +135,7 @@ func _move():
 
 func _physics_process(_delta):
 	## die
-	if (xp <= 0 && die == false) || Global.player_die == true:
+	if (xp <= 0 && die == false) || (Global.player_die == true) || (Global.reset_player == true):
 		_die()
 	## move
 	if is_move == true:
@@ -169,5 +169,8 @@ func _call():
 
 
 func _on_call_mob_area_entered(area):
+	if area.name == "spikes":
+		xp -= 1
+		#print(1)
 	if area.name == "player":
 		xp -= 1

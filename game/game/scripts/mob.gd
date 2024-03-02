@@ -66,15 +66,15 @@ func _tp():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var decors = get_tree().get_nodes_in_group("decors")
 	var call_mobs = get_tree().get_nodes_in_group("call_mobs")
-	var x = randi_range(0, 9) * 16 + 8
-	var y = randi_range(0, 8) * 16 + 8
+	var x = randi_range(1, 10) * 16 + 8
+	var y = randi_range(1, 9) * 16 + 8
 	var tp_tile: Vector2i = tile_map.local_to_map(Vector2(x, y))
 	var data = tile_map.get_cell_tile_data(0, tp_tile)
 	var tp: bool
 	while tile_map.local_to_map(Vector2(x, y)) ==  tile_map.local_to_map(player.global_position) || tp == false:
 		tp = true
-		x = randi_range(0, 9) * 16 + 8
-		y = randi_range(0, 8) * 16 + 8
+		x = randi_range(1, 10) * 16 + 8
+		y = randi_range(1, 9) * 16 + 8
 		tp_tile = tile_map.local_to_map(Vector2(x, y))
 		for enemy in enemies:
 			if enemy == self:
@@ -112,8 +112,12 @@ func _call():
 		x = randi_range(-1, 1)
 		y = randi_range(-1, 1)
 		if x == 0 && y == 0:
-			calling = false
-			continue
+			#calling = false
+			if randi_range(1, 2) == 1:
+				x += 1
+			else:
+				y += 1
+			#continue
 		#prints(x, y)
 		call_tile = Vector2i(tile_map.local_to_map(global_position).x + x, tile_map.local_to_map(global_position).y + y)
 		#print(call_tile)
@@ -429,14 +433,18 @@ func _die():
 		#Global.player_xp += 1
 	Global.quantity_mob -= 1
 	if nomber <= 5:
-		global_position = (Vector2(-88 + (nomber - 1) * 16, 136))
+		global_position = (Vector2(-72 + (nomber - 1) * 16, 152))
 	else:
-		global_position = (Vector2(184 + (nomber - 6) * 16, 136))
+		global_position = (Vector2(200 + (nomber - 6) * 16, 152))
 	if Global.place == "tutorial":
 		tutor_die()
 		
 
 func _on_enemy_area_entered(area):
+	if mob != "ghost":
+		if area.name == "spikes":
+			xp -= 1
+			#print(1)
 	if area.name == "player":
 		xp -= 1
 		if mob == "necromant":
@@ -472,8 +480,8 @@ func _spawn():
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var decors = get_tree().get_nodes_in_group("decors")
 	var call_mobs = get_tree().get_nodes_in_group("call_mobs")
-	var x = randi_range(0, 9) * 16 + 8
-	var y = randi_range(0, 8) * 16 + 8
+	var x = randi_range(1, 10) * 16 + 8
+	var y = randi_range(1, 9) * 16 + 8
 	var spawn_tile: Vector2i = tile_map.local_to_map(Vector2(x, y))
 	#var data = tile_map.get_cell_tile_data(0, spawn_tile)
 	var spawn: bool
@@ -482,8 +490,8 @@ func _spawn():
 		#while spawn == false:
 		#path = astar_grid.get_id_path(tile_map.local_to_map(global_position), tile_map.local_to_map(player.global_position))
 		spawn = true
-		x = randi_range(0, 9) * 16 + 8
-		y = randi_range(0, 8) * 16 + 8
+		x = randi_range(1, 10) * 16 + 8
+		y = randi_range(1, 9) * 16 + 8
 		spawn_tile = tile_map.local_to_map(Vector2(x, y))
 		#if tile_map.local_to_map(Vector2(x, 0)) > tile_map.local_to_map(player.global_position):
 			#spawn = false

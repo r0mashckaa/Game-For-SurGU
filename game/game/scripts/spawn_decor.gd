@@ -10,15 +10,15 @@ func _ready():
 	for i in range(0, rand):
 		var temp_decor = enviroment.instantiate()
 		add_child(temp_decor)
-		var x = randi_range(0, 9) * 16 + 8
-		var y = randi_range(0, 8) * 16 + 8
+		var x = randi_range(1, 10) * 16 + 8
+		var y = randi_range(1, 9) * 16 + 8
 		var spawn: bool
 		var data = tile_map.get_cell_tile_data(0, tile_map.local_to_map(Vector2(x, y)))
 		var decors = get_tree().get_nodes_in_group("decors")
 		while tile_map.local_to_map(Vector2(x, y)) ==  tile_map.local_to_map(player.global_position) || spawn == false:
 			spawn = true
-			x = randi_range(0, 9) * 16 + 8
-			y = randi_range(0, 8) * 16 + 8
+			x = randi_range(1, 10) * 16 + 8
+			y = randi_range(1, 9) * 16 + 8
 			for decor in decors:
 				if tile_map.local_to_map(Vector2(x, y)) == tile_map.local_to_map(decor.global_position):
 					spawn = false

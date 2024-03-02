@@ -44,6 +44,7 @@ func _process(_delta):
 		#prints(range_min + wave_min, range_max + wave_max)
 		rand = randi_range(range_min + wave_min, range_max + wave_max)
 		spawn = true
+		#print(spawn)
 		#respawn = false
 		#print(rand)
 	if quantity_mob >= rand:

@@ -30,15 +30,7 @@ func _label():
 		lable_move = true
 		return
 
-func _physics_process(_delta):
-	if Global.label == false:
-		$Label.visible = false
-	else:
-		$Label.visible = true
-	if Global.reset == true || Global.player_die == true:
-		return
-	_label()
-	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
+func _lable_move():
 	var mouse_x = get_global_mouse_position().x - player.global_position.x
 	var mouse_y = get_global_mouse_position().y - player.global_position.y
 	if tile_map.local_to_map(get_global_mouse_position()) == tile_map.local_to_map(player.global_position):
@@ -61,3 +53,20 @@ func _physics_process(_delta):
 			global_position = Vector2(player.global_position.x, player.global_position.y - 16)
 			veloc = Vector2.UP
 		#label_tile_data.get_custom_data("walk") == true
+
+func _label_visible():
+	var lable_tile = tile_map.local_to_map(global_position)
+	var data = tile_map.get_cell_tile_data(0, lable_tile)
+	if Global.label == false || data == null or not data.get_custom_data("walk"):
+		$Label.visible = false
+	elif Global.label == true && Global.reset == false:
+		$Label.visible = true
+	if Global.reset == true || Global.player_die == true:
+		$Label.visible = false
+		return
+
+func _physics_process(_delta):
+	_label_visible()
+	_label()
+	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
+	_lable_move()

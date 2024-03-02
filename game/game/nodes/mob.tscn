@@ -44,6 +44,7 @@ position = Vector2(1, -4)
 texture = ExtResource("6_1enhb")
 
 [node name="enemy" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
 shape = SubResource("RectangleShape2D_vnjdn")

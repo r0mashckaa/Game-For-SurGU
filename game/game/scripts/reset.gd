@@ -32,10 +32,12 @@ func _on_resum_pressed():
 	Global.wave = 0
 	Global.nomber_call_mob = 1
 	Global.reset_player = true
+	Global.rand = 0
 	#Global.enviroment = []
 	await get_tree().create_timer(0.5).timeout
 	#get_tree().change_scene_to_file("res://game.tscn")
 	get_tree().reload_current_scene()
+	Global.reset_player = false
 	Global.quantity_call_mob = 1
 	Global.quantity_mob = 0
 
@@ -53,8 +55,10 @@ func _on_menu_pressed():
 	Global.wave = 0
 	Global.nomber_call_mob = 1
 	Global.reset_player = true
+	Global.rand = 0
 	await get_tree().create_timer(0.5).timeout
 	#get_tree().change_scene_to_file("res://game.tscn")
+	Global.reset_player = false
 	Global.quantity_call_mob = 1
 	Global.quantity_mob = 0
 	#Global.place = "menu"

@@ -22,7 +22,6 @@ Xod="res://xod.gd"
 
 [display]
 
-window/size/mode=3
 window/size/window_width_override=1152
 window/stretch/mode="canvas_items"
 

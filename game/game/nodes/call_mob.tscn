@@ -25,6 +25,7 @@ offset_right = 11.0
 offset_bottom = -6.0
 
 [node name="call_mob" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="call_mob"]
 shape = SubResource("RectangleShape2D_2hffe")

@@ -1,45 +1,114 @@
-[gd_scene load_steps=9 format=3 uid="uid://duqqi388cfs8f"]
+[gd_scene load_steps=15 format=3 uid="uid://duqqi388cfs8f"]
 
 [ext_resource type="Script" path="res://scripts/enviroment.gd" id="1_j34ru"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="1_m7vyp"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="2_j34sb"]
+[ext_resource type="Texture2D" uid="uid://djhfdbgdd15u0" path="res://sprites/spikess.png" id="2_oenx6"]
 [ext_resource type="Texture2D" uid="uid://disfxx2jeufh1" path="res://sprites/column.png" id="3_jlpef"]
 [ext_resource type="Texture2D" uid="uid://c4vjygnt41fro" path="res://sprites/vase.png" id="4_kdnwp"]
-[ext_resource type="Texture2D" uid="uid://djhfdbgdd15u0" path="res://sprites/thorns.png" id="6_6h27u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_56ujg"]
+atlas = ExtResource("2_oenx6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="PackedScene" id="PackedScene_ysp8r"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("thorns", "Node2D", "texture", "Sprite2D"),
+"node_count": 2,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 0, 0, 0, 0, 3, 0, -1, 1, 2, 0, 0),
+"variants": [SubResource("AtlasTexture_56ujg")],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvow2"]
 size = Vector2(14, 14)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3wxun"]
-atlas = ExtResource("6_6h27u")
+[sub_resource type="AtlasTexture" id="AtlasTexture_cud8g"]
+atlas = ExtResource("2_oenx6")
 region = Rect2(0, 0, 16, 16)
 
-[node name="enviroment" type="Node2D" groups=["decors"]]
-script = ExtResource("1_j34ru")
+[sub_resource type="AtlasTexture" id="AtlasTexture_77lsa"]
+atlas = ExtResource("2_oenx6")
+region = Rect2(32, 0, 16, 16)
 
-[node name="Platform" type="Sprite2D" parent="."]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0blt"]
+atlas = ExtResource("2_oenx6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aenj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cud8g")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77lsa")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0blt")
+}],
+"loop": true,
+"name": &"ready",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0to0h"]
+size = Vector2(14, 14)
+
+[node name="enviroment" type="Node2D"]
+script = ExtResource("1_j34ru")
+thorns = SubResource("PackedScene_ysp8r")
+
+[node name="decors" type="Node2D" parent="." groups=["decors"]]
+
+[node name="Platform" type="Sprite2D" parent="decors"]
 visible = false
 texture = ExtResource("1_m7vyp")
 
-[node name="Dummy" type="Sprite2D" parent="Platform"]
+[node name="Dummy" type="Sprite2D" parent="decors/Platform"]
 position = Vector2(0, -4)
 texture = ExtResource("2_j34sb")
 
-[node name="enviroment" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enviroment"]
-shape = SubResource("RectangleShape2D_fvow2")
-
-[node name="Column" type="Sprite2D" parent="."]
+[node name="Column" type="Sprite2D" parent="decors"]
 visible = false
 texture = ExtResource("3_jlpef")
 
-[node name="Vase" type="Sprite2D" parent="."]
+[node name="Vase" type="Sprite2D" parent="decors"]
 visible = false
 texture = ExtResource("4_kdnwp")
 
-[node name="thorns" type="Sprite2D" parent="."]
-visible = false
-texture = SubResource("AtlasTexture_3wxun")
+[node name="enviroment" type="Area2D" parent="decors"]
 
-[connection signal="area_entered" from="enviroment" to="." method="_on_enviroment_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="decors/enviroment"]
+shape = SubResource("RectangleShape2D_fvow2")
+
+[node name="spikes" type="Node2D" parent="."]
+
+[node name="spike" type="AnimatedSprite2D" parent="spikes"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_aenj5")
+animation = &"ready"
+autoplay = "off"
+
+[node name="spikes" type="Area2D" parent="spikes"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spikes/spikes"]
+shape = SubResource("RectangleShape2D_0to0h")
+disabled = true
+
+[connection signal="area_entered" from="decors/enviroment" to="." method="_on_enviroment_area_entered"]

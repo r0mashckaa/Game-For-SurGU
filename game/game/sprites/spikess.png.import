@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djhfdbgdd15u0"
-path="res://.godot/imported/thorns.png-2715dd3130fb3b6ac9eb9c5b1c63af37.ctex"
+path="res://.godot/imported/spikess.png-73a57b17fac5d46825cd5fda51fd0ced.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/thorns.png"
-dest_files=["res://.godot/imported/thorns.png-2715dd3130fb3b6ac9eb9c5b1c63af37.ctex"]
+source_file="res://sprites/spikess.png"
+dest_files=["res://.godot/imported/spikess.png-73a57b17fac5d46825cd5fda51fd0ced.ctex"]
 
 [params]
 
