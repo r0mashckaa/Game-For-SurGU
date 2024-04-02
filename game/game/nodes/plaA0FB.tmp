@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnccpkg8tqvj"]
+[gd_scene load_steps=9 format=3 uid="uid://bnccpkg8tqvj"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_s15e6"]
+[ext_resource type="Script" path="res://scripts/label.gd" id="2_4wm2b"]
 [ext_resource type="Texture2D" uid="uid://qfbngaq8op61" path="res://sprites/label.png" id="2_8q5wv"]
 [ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="2_liftt"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="3_jlnbm"]
@@ -17,7 +18,7 @@ scale = Vector2(0.9, 0.9)
 script = ExtResource("1_s15e6")
 
 [node name="label" type="Node2D" parent="."]
-visible = false
+script = ExtResource("2_4wm2b")
 
 [node name="Label" type="Sprite2D" parent="label"]
 texture = ExtResource("2_8q5wv")
@@ -49,11 +50,8 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="player" type="Area2D" parent="RayCast2D"]
-collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RayCast2D/player"]
 shape = SubResource("RectangleShape2D_s7v3b")
 
 [connection signal="area_entered" from="player/Platform/press" to="." method="_on_press_area_entered"]
-[connection signal="area_entered" from="RayCast2D/player" to="." method="_on_player_area_entered"]
-[connection signal="area_exited" from="RayCast2D/player" to="." method="_on_player_area_exited"]

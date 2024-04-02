@@ -4,9 +4,10 @@ var veloc = global_position
 var lable: bool = true
 var lable_move: bool = true
 @onready var tile_map = $"../TileMap"
-@onready var player# = $"../game/player"
+@onready var player# = $".."
 
 func _ready():
+	$Label.visible = true
 	if Global.place == "game":
 		player = $"../game/player"
 	elif Global.place == "tutorial":
@@ -55,18 +56,19 @@ func _lable_move():
 		#label_tile_data.get_custom_data("walk") == true
 
 func _label_visible():
-	var lable_tile = tile_map.local_to_map(global_position)
-	var data = tile_map.get_cell_tile_data(0, lable_tile)
-	if Global.label == false || data == null or not data.get_custom_data("walk"):
+	#var lable_tile = tile_map.local_to_map(global_position)
+	#var data = tile_map.get_cell_tile_data(0, lable_tile)
+	if Global.label == false:# || data == null or not data.get_custom_data("walk"):
 		$Label.visible = false
 	elif Global.label == true && Global.reset == false:
 		$Label.visible = true
 	if Global.reset == true || Global.player_die == true:
-		$Label.visible = false
+		Global.label = false
+		#$Label.visible = false
 		return
 
 func _physics_process(_delta):
-	_label_visible()
 	_label()
 	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
 	_lable_move()
+	_label_visible()

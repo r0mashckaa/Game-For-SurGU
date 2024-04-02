@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var tile_map = $"../../../TileMap"
 @onready var player = $"../../player"
-@onready var sprite = $Platform
+@onready var sprite = $platform
 var astar_grid: AStarGrid2D
 var is_move: bool
 var stan: bool
@@ -65,11 +65,11 @@ func _die():
 
 func _flip():
 	if sprite.global_position.x < global_position.x:
-		$Platform/Skelet.flip_h = false
-		$Platform/Skelet.position.x = 2
+		$platform/Platform/Skelet.flip_h = false
+		$platform/Platform/Skelet.position.x = 2
 	elif sprite.global_position.x > global_position.x:
-		$Platform/Skelet.flip_h = true
-		$Platform/Skelet.position.x = -2
+		$platform/Platform/Skelet.flip_h = true
+		$platform/Platform/Skelet.position.x = -2
 
 func _move():
 	if stan == true:
@@ -100,14 +100,14 @@ func _move():
 	if path.size() == 1:
 		#print("i have")
 		## damage
-		$Platform.visible = false
+		$platform/Platform.visible = false
 		stan = true
 		Global.player_xp -= 1
 		#print(Xod.player_xp)
 		#Global.move_mob += 1
 		move = true
 		await get_tree().create_timer(0.1).timeout
-		$Platform.visible = true
+		$platform/Platform.visible = true
 		return
 	else:
 		#Global.move_mob += 1
@@ -128,6 +128,7 @@ func _move():
 	#room = 0
 	var original_position = Vector2(global_position)
 	global_position = tile_map.map_to_local(path[0])
+	#$AnimationPlayer.play("move")
 	#print(global_position)
 	sprite.global_position = original_position
 	stan = true
@@ -169,7 +170,8 @@ func _call():
 
 
 func _on_call_mob_area_entered(area):
-	if area.name == "spikes":
+	if area.name == "spikes" || area.name == "trap":
+		await get_tree().create_timer(0.1).timeout
 		xp -= 1
 		#print(1)
 	if area.name == "player":

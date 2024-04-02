@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://uxemgi6o3xxy"]
+[gd_scene load_steps=18 format=3 uid="uid://uxemgi6o3xxy"]
 
 [ext_resource type="Texture2D" uid="uid://bw8xoe1bxro58" path="res://sprites/tileset.png" id="1_govcn"]
 [ext_resource type="Script" path="res://scripts/tutorial.gd" id="1_sd5ac"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="5_a3xx1"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="6_2it4d"]
 [ext_resource type="Script" path="res://scripts/reset.gd" id="6_rinrb"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="7_awxev"]
 [ext_resource type="Texture2D" uid="uid://c0ljyg4n70vgv" path="res://sprites/button.png" id="8_1fmmr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hgf26"]
@@ -162,6 +163,13 @@ y_sort_enabled = true
 
 [node name="dummy" type="Node2D" parent="tutorial/dummys" groups=["decors"]]
 position = Vector2(136, 136)
+scale = Vector2(0.9, 0.9)
+
+[node name="Shadow" type="Sprite2D" parent="tutorial/dummys/dummy"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, 1.11111)
+texture = ExtResource("7_awxev")
+offset = Vector2(0, 2)
 
 [node name="Platform" type="Sprite2D" parent="tutorial/dummys/dummy"]
 texture = ExtResource("5_a3xx1")
@@ -179,6 +187,13 @@ shape = SubResource("RectangleShape2D_ogjb0")
 
 [node name="dummy2" type="Node2D" parent="tutorial/dummys" groups=["decors"]]
 position = Vector2(248, 136)
+scale = Vector2(0.9, 0.9)
+
+[node name="Shadow" type="Sprite2D" parent="tutorial/dummys/dummy2"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, 1.11111)
+texture = ExtResource("7_awxev")
+offset = Vector2(0, 2)
 
 [node name="Platform" type="Sprite2D" parent="tutorial/dummys/dummy2"]
 texture = ExtResource("5_a3xx1")

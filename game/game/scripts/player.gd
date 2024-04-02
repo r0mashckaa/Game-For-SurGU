@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var tile_map = $"../../TileMap"
-@onready var sprite = $Platform
+@onready var sprite = $player
 @onready var raycast = $RayCast2D
 var lable: bool = true
 var lable_move: bool = true
@@ -74,6 +74,7 @@ func _label():
 
 func _physics_process(_delta):
 	_label()
+	#$Shadow.global_position = sprite.global_position
 	#var label_tile_data: TileData = tile_map.get_cell_tile_data(0, veloc)
 	_label_move()
 	if Global.reset_player == true:
@@ -108,11 +109,13 @@ func _physics_process(_delta):
 
 func _flip():
 	if direct == 1:
-		$Platform/Player.flip_h = false
+		$player/Platform/Player.flip_h = false
 	else:
-		$Platform/Player.flip_h = true
+		$player/Platform/Player.flip_h = true
 
 func _process(_delta):
+	if Global.spawner == true:
+		return
 	if Global.player_xp > xp_max:
 		Global.player_xp = xp_max
 	if Global.player_die == true:
@@ -161,24 +164,34 @@ func _move(direction: Vector2):
 		if raycast.is_colliding():
 			hit = true
 			is_move = true
-			$RayCast2D/player.global_position = $RayCast2D.global_position + direction * 16
+			$RayCast2D/player.global_position = raycast.global_position + direction * 16
 			anim_position = Vector2(start_position * direction * 5)
 			await get_tree().create_timer(0.1).timeout
+			Global.xod_player = false
 			anim_position = Vector2(global_position)
-			$RayCast2D/player.global_position = $RayCast2D.global_position
+			$RayCast2D/player.global_position = raycast.global_position
 			await get_tree().create_timer(0.1).timeout
 			hit = false
 			sprite.global_position = global_position
-			Global.xod_player = false
 			return
 		is_move = true
 		global_position = tile_map.map_to_local(target_tile)
 		sprite.global_position = tile_map.map_to_local(current_tile)
 		#await get_tree().create_timer(0.1).timeout
-		
 	#print(Xod.xod_player)
 
 
 func _on_press_area_entered(area):
 	if area.name == "spikes":
 		Global.player_xp -= 1
+
+
+
+func _on_player_area_exited(area):
+	if area.name == "trap":
+		Global.can_trap = true
+
+
+func _on_player_area_entered(area):
+	if area.name == "trap":
+		Global.can_trap = false

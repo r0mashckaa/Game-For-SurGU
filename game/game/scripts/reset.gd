@@ -23,19 +23,7 @@ func _move():
 		move_and_slide()
 
 func _on_resum_pressed():
-	Global.player_die = false
-	Global.reset = false
-	Global.xod_player = false
-	#Global.player_xp = 3
-	Global.move_mob = 0
-	Global.nomber_mob = 1
-	Global.wave = 0
-	Global.nomber_call_mob = 1
-	Global.reset_player = true
-	Global.rand = 0
-	#Global.enviroment = []
-	await get_tree().create_timer(0.5).timeout
-	#get_tree().change_scene_to_file("res://game.tscn")
+	_update()
 	get_tree().reload_current_scene()
 	Global.reset_player = false
 	Global.quantity_call_mob = 1
@@ -44,23 +32,31 @@ func _on_resum_pressed():
 func _on_quit_pressed():
 	get_tree().quit()
 
-
-func _on_menu_pressed():
+func _update():
 	Global.player_die = false
 	Global.reset = false
 	Global.xod_player = false
-	#Global.player_xp = 3
+	Global.player_xp = 3
 	Global.move_mob = 0
 	Global.nomber_mob = 1
 	Global.wave = 0
+	Global.coin = 0
+	Global.last_mob = 0
+	Global.spawner = false
+	#Global.label = true
 	Global.nomber_call_mob = 1
 	Global.reset_player = true
 	Global.rand = 0
+	Global.shop = false
+	#Global.enviroment = []
 	await get_tree().create_timer(0.5).timeout
 	#get_tree().change_scene_to_file("res://game.tscn")
+	
+
+func _on_menu_pressed():
+	_update()
 	Global.reset_player = false
 	Global.quantity_call_mob = 1
 	Global.quantity_mob = 0
-	#Global.place = "menu"
 	get_tree().change_scene_to_file("res://nodes/menu.tscn")
 	

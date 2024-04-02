@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var tile_map = $"../../TileMap"
 @onready var player = $"../player"
-@onready var sprite = $Platform
+@onready var sprite = $mob
 var astar_grid: AStarGrid2D
 var is_move: bool
 var stan: bool
@@ -18,10 +18,13 @@ var anim_position: Vector2
 var start_position: Vector2
 var dead_end
 var cooldown = 3
+@export var coin: PackedScene
+var is_spawn = false
 
 func _ready():
 	nomber = Global.nomber_mob
 	Global.nomber_mob += 1
+	Global.last_mob = nomber
 	$Label.text = (str(nomber))
 	astar_grid = AStarGrid2D.new()
 	astar_grid.region = tile_map.get_used_rect()
@@ -45,6 +48,8 @@ func _process(_delta):
 		if Global.spawn == true:
 			#print("spawn")
 			_spawn()
+			return
+		$AnimationPlayer.stop()
 		return
 	if is_move == true:
 		return
@@ -53,6 +58,7 @@ func _process(_delta):
 		return
 	if move == true:
 		return
+	$AnimationPlayer.stop()
 	if mob == "knight":
 		_knight()
 	elif mob == "golem":
@@ -201,6 +207,17 @@ func _necromant():
 		_call()
 	#is_move = true
 
+func _atac():
+	_atac_flip()
+	## damage
+	$mob/Platform/mobs.visible = false
+	Global.player_xp -= 1
+	#print(Xod.player_xp)
+	Global.move_mob += 1
+	move = true
+	await get_tree().create_timer(0.1).timeout
+	$mob/Platform/mobs.visible = true
+
 func _golem():
 	if stan == true:
 		Global.move_mob += 1
@@ -229,20 +246,12 @@ func _golem():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
-		_atac_flip()
-		## damage
-		$Platform/mobs.visible = false
+		_atac()
 		stan = true
-		Global.player_xp -= 1
-		#print(Xod.player_xp)
-		Global.move_mob += 1
-		move = true
-		await get_tree().create_timer(0.1).timeout
-		$Platform/mobs.visible = true
 		return
-	else:
-		Global.move_mob += 1
-		move = true
+	#else:
+		#Global.move_mob += 1
+		#move = true
 	if path.is_empty() == true:
 		#print("cant")
 		## cant move
@@ -292,16 +301,8 @@ func _knight():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
-		_atac_flip()
-		## damage
-		$Platform/mobs.visible = false
+		_atac()
 		stan = true
-		Global.player_xp -= 1
-		#print(Xod.player_xp)
-		Global.move_mob += 1
-		move = true
-		await get_tree().create_timer(0.1).timeout
-		$Platform/mobs.visible = true
 		return
 	if path.is_empty() == true:
 		#print("cant")
@@ -318,6 +319,7 @@ func _knight():
 	room = 0
 	var original_position = Vector2(global_position)
 	global_position = tile_map.map_to_local(path[0])
+	#$AnimationPlayer.play("move")
 	#print(global_position)
 	sprite.global_position = original_position
 	is_move = true
@@ -347,16 +349,7 @@ func _ghost():
 	path.pop_front()
 	if path.size() == 1:
 		#print("i have")
-		_atac_flip()
-		## damage
-		$Platform/mobs.visible = false
-		#stan = true
-		Global.player_xp -= 1
-		#print(Xod.player_xp)
-		Global.move_mob += 1
-		move = true
-		await get_tree().create_timer(0.1).timeout
-		$Platform/mobs.visible = true
+		_atac()
 		return
 	if path.is_empty() == true:
 		#print("cant")
@@ -372,35 +365,35 @@ func _ghost():
 
 func _atac_flip():
 	if global_position.x < player.global_position.x:
-		$Platform/mobs/Golem.flip_h = false
-		$Platform/mobs/Knight.flip_h = false
-		$Platform/mobs/Necromant.flip_h = false
-		$Platform/mobs/Ghost.flip_h = false
-		$Platform/mobs/Knight.position.x = 2
-		$Platform/mobs/Golem.position.x = 1
+		$mob/Platform/mobs/Golem.flip_h = false
+		$mob/Platform/mobs/Knight.flip_h = false
+		$mob/Platform/mobs/Necromant.flip_h = false
+		$mob/Platform/mobs/Ghost.flip_h = false
+		$mob/Platform/mobs/Knight.position.x = 2
+		$mob/Platform/mobs/Golem.position.x = 1
 	elif global_position.x > player.global_position.x:
-		$Platform/mobs/Golem.flip_h = true
-		$Platform/mobs/Knight.flip_h = true
-		$Platform/mobs/Necromant.flip_h = true
-		$Platform/mobs/Ghost.flip_h = true
-		$Platform/mobs/Knight.position.x = -2
-		$Platform/mobs/Golem.position.x = -1
+		$mob/Platform/mobs/Golem.flip_h = true
+		$mob/Platform/mobs/Knight.flip_h = true
+		$mob/Platform/mobs/Necromant.flip_h = true
+		$mob/Platform/mobs/Ghost.flip_h = true
+		$mob/Platform/mobs/Knight.position.x = -2
+		$mob/Platform/mobs/Golem.position.x = -1
 
 func _flip():
 	if sprite.global_position.x < global_position.x:
-		$Platform/mobs/Golem.flip_h = false
-		$Platform/mobs/Knight.flip_h = false
-		$Platform/mobs/Necromant.flip_h = false
-		$Platform/mobs/Ghost.flip_h = false
-		$Platform/mobs/Knight.position.x = 2
-		$Platform/mobs/Golem.position.x = 1
+		$mob/Platform/mobs/Golem.flip_h = false
+		$mob/Platform/mobs/Knight.flip_h = false
+		$mob/Platform/mobs/Necromant.flip_h = false
+		$mob/Platform/mobs/Ghost.flip_h = false
+		$mob/Platform/mobs/Knight.position.x = 2
+		$mob/Platform/mobs/Golem.position.x = 1
 	elif sprite.global_position.x > global_position.x:
-		$Platform/mobs/Golem.flip_h = true
-		$Platform/mobs/Knight.flip_h = true
-		$Platform/mobs/Necromant.flip_h = true
-		$Platform/mobs/Ghost.flip_h = true
-		$Platform/mobs/Knight.position.x = -2
-		$Platform/mobs/Golem.position.x = -1
+		$mob/Platform/mobs/Golem.flip_h = true
+		$mob/Platform/mobs/Knight.flip_h = true
+		$mob/Platform/mobs/Necromant.flip_h = true
+		$mob/Platform/mobs/Ghost.flip_h = true
+		$mob/Platform/mobs/Knight.position.x = -2
+		$mob/Platform/mobs/Golem.position.x = -1
 
 func _physics_process(_delta):
 	## die
@@ -408,6 +401,17 @@ func _physics_process(_delta):
 	_tutor_spawn()
 	if xp <= 0 && die == false:
 		_die()
+	if is_spawn == true:
+		sprite.global_position = sprite.global_position.move_toward(global_position, 3)
+		_flip()
+		Global.move_mob += 1
+		if sprite.global_position != global_position:
+			return
+		start_position = sprite.global_position
+		if nomber == Global.rand:
+			Global.spawner = false
+		is_spawn = false
+		move = true
 	## move
 	if is_move == true:
 		sprite.global_position = sprite.global_position.move_toward(global_position, 1)
@@ -417,17 +421,25 @@ func _physics_process(_delta):
 			return
 		start_position = sprite.global_position
 		is_move = false
-		
 		move = true
 	## animation
 	if Global.xod_player == true && stan == false && die == false && Global.player_die == false && Global.reset == false:
-		anim_position = Vector2(start_position.x + shift, sprite.global_position.y)
-		sprite.global_position = sprite.global_position.move_toward(anim_position, 0.2)
-		if sprite.global_position != anim_position:
-			return
-		shift *= -1
+		$AnimationPlayer.play("shake")
+#		anim_position = Vector2(start_position.x + shift, sprite.global_position.y)
+#		sprite.global_position = sprite.global_position.move_toward(anim_position, 0.2)
+#		if sprite.global_position != anim_position:
+#			return
+#		shift *= -1
+
+
+func _spawn_coin():
+	if randi_range(1, 4) == 2:
+		var temp_coin = coin.instantiate()
+		$"..".add_child(temp_coin)
+		temp_coin.global_position = global_position
 
 func _die():
+	_spawn_coin()
 	die = true
 	#if mob == "necromant":
 		#Global.player_xp += 1
@@ -437,46 +449,50 @@ func _die():
 	else:
 		global_position = (Vector2(200 + (nomber - 6) * 16, 152))
 	if Global.place == "tutorial":
-		tutor_die()
+		_tutor_die()
 		
 
 func _on_enemy_area_entered(area):
 	if mob != "ghost":
-		if area.name == "spikes":
+		if area.name == "spikes" || area.name == "trap":
+			await get_tree().create_timer(0.1).timeout
 			xp -= 1
 			#print(1)
 	if area.name == "player":
 		xp -= 1
-		if mob == "necromant":
+		if mob == "necromant" && xp != 0:
 			_tp()
 
 func _mob():
 	if mob == "knight":
-		$Platform/mobs/Knight.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Necromant.visible = false
-		$Platform/mobs/Ghost.visible = false
+		$mob/Platform/mobs/Knight.visible = true
+		$mob/Platform/mobs/Golem.visible = false
+		$mob/Platform/mobs/Necromant.visible = false
+		$mob/Platform/mobs/Ghost.visible = false
 	elif mob == "golem":
-		$Platform/mobs/Golem.visible = true
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Necromant.visible = false
-		$Platform/mobs/Ghost.visible = false
+		$mob/Platform/mobs/Golem.visible = true
+		$mob/Platform/mobs/Knight.visible = false
+		$mob/Platform/mobs/Necromant.visible = false
+		$mob/Platform/mobs/Ghost.visible = false
 	elif  mob == "ghost":
-		$Platform/mobs/Ghost.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Necromant.visible = false
+		$mob/Platform/mobs/Ghost.visible = true
+		$mob/Platform/mobs/Golem.visible = false
+		$mob/Platform/mobs/Knight.visible = false
+		$mob/Platform/mobs/Necromant.visible = false
 	elif mob == "necromant":
-		$Platform/mobs/Necromant.visible = true
-		$Platform/mobs/Golem.visible = false
-		$Platform/mobs/Knight.visible = false
-		$Platform/mobs/Ghost.visible = false
+		$mob/Platform/mobs/Necromant.visible = true
+		$mob/Platform/mobs/Golem.visible = false
+		$mob/Platform/mobs/Knight.visible = false
+		$mob/Platform/mobs/Ghost.visible = false
 
 func _spawn():
 	if Global.place != "game":
 		return
 	if nomber > Global.rand:
 		return
+	if nomber != Global.spawn_mob:
+		return
+	$Timer.start(0.1)
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	var decors = get_tree().get_nodes_in_group("decors")
 	var call_mobs = get_tree().get_nodes_in_group("call_mobs")
@@ -521,11 +537,16 @@ func _spawn():
 	elif rand > 75:
 		mob = "ghost"
 		xp = 1
+	global_position = Vector2(x, y - 200)
+	var pos = global_position
 	global_position = Vector2(x, y)
+	sprite.global_position = pos
+	#is_move = true
+	is_spawn = true
 	#prints(position, global_position, tile_map.local_to_map(global_position), tile_map.local_to_map(spawn_tile))
-	die = false
 	stan = true
 	dead_end = true
+	die = false
 	#print(spawn_tile)
 	Global.quantity_mob += 1
 	start_position = sprite.global_position
@@ -556,8 +577,12 @@ func _tutor_spawn():
 			Global.quantity_mob += 1
 			start_position = sprite.global_position
 
-func tutor_die():
+func _tutor_die():
 	if mob == "knight":
 		global_position = $"../../buttons/button_knight/knight_die".global_position
 	if mob == "golem":
 		global_position = $"../../buttons/button_golem/golem_die".global_position
+
+
+func _on_timer_timeout():
+	Global.spawn_mob += 1

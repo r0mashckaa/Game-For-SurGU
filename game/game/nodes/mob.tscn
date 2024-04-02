@@ -1,7 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8b6mvf1t3ufr"]
+[gd_scene load_steps=14 format=3 uid="uid://b8b6mvf1t3ufr"]
 
 [ext_resource type="Script" path="res://scripts/mob.gd" id="1_orrr8"]
+[ext_resource type="PackedScene" uid="uid://favojm2e332h" path="res://nodes/coin.tscn" id="2_csjcl"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="2_kfa2v"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="3_rwufx"]
 [ext_resource type="Texture2D" uid="uid://cql56nqopbpje" path="res://sprites/mobs/necromant.png" id="5_b7nyu"]
 [ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://sprites/mobs/golem.png" id="6_1enhb"]
 [ext_resource type="Texture2D" uid="uid://dhpw8vi6ijcr2" path="res://sprites/mobs/ghost.png" id="6_xlkpw"]
@@ -11,34 +13,87 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnjdn"]
 size = Vector2(14, 14)
 
-[node name="mob" type="Node2D" groups=["enemies"]]
-script = ExtResource("1_orrr8")
+[sub_resource type="Animation" id="Animation_d4vwj"]
+resource_name = "move"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mob/Platform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3), Vector2(0, 0)]
+}
 
-[node name="Platform" type="Sprite2D" parent="."]
+[sub_resource type="Animation" id="Animation_vm6ax"]
+resource_name = "shake"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mob:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-2.22222, 0), Vector2(0, 0), Vector2(2.22222, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_krcnl"]
+_data = {
+"move": SubResource("Animation_d4vwj"),
+"shake": SubResource("Animation_vm6ax")
+}
+
+[node name="mob" type="Node2D" groups=["enemies"]]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_orrr8")
+coin = ExtResource("2_csjcl")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, 3.33333)
+texture = ExtResource("3_rwufx")
+
+[node name="mob" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="mob"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, 3.33333)
+texture = ExtResource("3_rwufx")
+
+[node name="Platform" type="Sprite2D" parent="mob"]
 texture = ExtResource("2_kfa2v")
 
-[node name="mobs" type="Node2D" parent="Platform"]
+[node name="mobs" type="Node2D" parent="mob/Platform"]
 
-[node name="Necromant" type="Sprite2D" parent="Platform/mobs"]
+[node name="Necromant" type="Sprite2D" parent="mob/Platform/mobs"]
 visible = false
 position = Vector2(0, -4)
 texture = ExtResource("5_b7nyu")
 
-[node name="Ghost" type="Sprite2D" parent="Platform/mobs"]
+[node name="Ghost" type="Sprite2D" parent="mob/Platform/mobs"]
 visible = false
 position = Vector2(0, -4)
 texture = ExtResource("6_xlkpw")
 
-[node name="Dummy" type="Sprite2D" parent="Platform/mobs"]
+[node name="Dummy" type="Sprite2D" parent="mob/Platform/mobs"]
 visible = false
 position = Vector2(0, -4)
 texture = ExtResource("7_ns2xs")
 
-[node name="Knight" type="Sprite2D" parent="Platform/mobs"]
+[node name="Knight" type="Sprite2D" parent="mob/Platform/mobs"]
 position = Vector2(2, -4)
 texture = ExtResource("7_t3ihs")
 
-[node name="Golem" type="Sprite2D" parent="Platform/mobs"]
+[node name="Golem" type="Sprite2D" parent="mob/Platform/mobs"]
 visible = false
 position = Vector2(1, -4)
 texture = ExtResource("6_1enhb")
@@ -60,4 +115,15 @@ text = "
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
+libraries = {
+"": SubResource("AnimationLibrary_krcnl")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
