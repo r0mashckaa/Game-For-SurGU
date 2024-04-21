@@ -8,11 +8,12 @@
 	<button on:click={perehod} class="chngpage">Бестиарий</button>
 	<img src="ff.png" alt="" class="ffa" />
 	<div class="text">
-		<h3 class="txt">Управление:</h3>
-		<h3 class="txt">W/↑ - идти/атаковать вверх; <b class="kgk">A/← - идти/атаковать влево;</b></h3>
-		<h3 class="txt">
-			S/↓ - идти/атаковать вниз; <b class="kgk">&nbsp&nbsp&nbsp D/→ - идти/атаковать вправо.</b>
+		<h3>Управление:</h3>
+		<h3>W/↑ - идти/атаковать вверх; <b class="kgk">A/← - идти/атаковать влево;</b></h3>
+		<h3>
+			S/↓ - идти/атаковать вниз; <b class="kgk">&nbsp&nbsp&nbsp D/→ - идти/атаковать вправо;</b>
 		</h3>
+		<h3>1 - Капкан; <b class="kgk1">2 - Динамит</b></h3>
 	</div>
 	<div class="line" />
 	<div class="description">
@@ -25,8 +26,8 @@
 	.container {
 		display: flex;
 		flex-direction: column;
-		margin: 295px 200px 0 320px;
-		width: 820px;
+		margin: 295px auto 0;
+		max-width: 820px;
 	}
 	.chngpage {
 		margin-left: 700px;
@@ -53,17 +54,19 @@
 		width: 110%;
 	}
 	.ffa {
-		margin: 60px 0 20px 14px;
-		width: 760px;
+		margin: 60px 0 20px;
 		border: 18px solid #ffc20e;
 	}
 	.text {
-		margin: 10px 104px 0 104px;
+		margin: 10px auto 0;
 		padding: 0 17px 0 17px;
 		border: 6px solid #ffc20e;
 	}
 	.kgk {
 		padding-left: 60px;
+	}
+	.kgk1 {
+		padding-left: 210px;
 	}
 	.line {
 		margin: 20px 0 20px 0;
