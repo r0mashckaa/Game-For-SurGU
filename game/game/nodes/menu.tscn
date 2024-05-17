@@ -1,34 +1,310 @@
-[gd_scene load_steps=2 format=3 uid="uid://m6dbuo1634lv"]
+[gd_scene load_steps=22 format=3 uid="uid://m6dbuo1634lv"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_1uo4p"]
+[ext_resource type="Texture2D" uid="uid://cy3vod7akeapb" path="res://sprites/shest_screen.png" id="2_ygvke"]
+[ext_resource type="Texture2D" uid="uid://4ig7siw7rqsa" path="res://sprites/button_play.png" id="3_vgikt"]
+[ext_resource type="Texture2D" uid="uid://cyf23q0siq81x" path="res://sprites/button_tutorial.png" id="4_0tj82"]
+[ext_resource type="Texture2D" uid="uid://cr31yl6gnx8v0" path="res://sprites/button_quit.png" id="5_ad8jk"]
+[ext_resource type="AudioStream" uid="uid://bx2gg5dnlftkm" path="res://sounds/lock.wav" id="6_tqb4g"]
+[ext_resource type="AudioStream" uid="uid://cwgeiqf2jof8c" path="res://sounds/button.wav" id="7_8rhck"]
+[ext_resource type="Texture2D" uid="uid://iee5nk5ea4wy" path="res://sprites/name_game.png" id="8_6r4uq"]
+[ext_resource type="Texture2D" uid="uid://bhmdvb3ebuqb6" path="res://sprites/name_text.png" id="9_y2w2m"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="10_6lkd7"]
+[ext_resource type="AudioStream" uid="uid://d2ulv2p8mw6uo" path="res://sounds/music/lobbi.mp3" id="11_chbqw"]
+
+[sub_resource type="Animation" id="Animation_qc4su"]
+resource_name = "play_down"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("play/ButtonPlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(7.5, 7.5)]
+}
+
+[sub_resource type="Animation" id="Animation_mev3o"]
+resource_name = "play_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("play/ButtonPlay:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7.5, 7.5), Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_i10wj"]
+resource_name = "quit_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quit/ButtonQuit:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(7.5, 7.5)]
+}
+
+[sub_resource type="Animation" id="Animation_vnuxv"]
+resource_name = "quit_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("quit/ButtonQuit:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7.5, 7.5), Vector2(8, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_6l876"]
+resource_name = "tutorial_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorial/ButtonTutorial:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(8, 8), Vector2(7.5, 7.5)]
+}
+
+[sub_resource type="Animation" id="Animation_3peuu"]
+resource_name = "tutorial_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tutorial/ButtonTutorial:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(7.5, 7.5), Vector2(8, 8)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o8gn3"]
+_data = {
+"play_down": SubResource("Animation_qc4su"),
+"play_up": SubResource("Animation_mev3o"),
+"quit_down": SubResource("Animation_i10wj"),
+"quit_up": SubResource("Animation_vnuxv"),
+"tutorial_down": SubResource("Animation_6l876"),
+"tutorial_up": SubResource("Animation_3peuu")
+}
+
+[sub_resource type="Animation" id="Animation_k5qpt"]
+resource_name = "clouse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shadow:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(578, -546), Vector2(578, -200)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(581, 512), Vector2(581, 200)]
+}
+
+[sub_resource type="Animation" id="Animation_1jxvt"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shadow:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(578, -200), Vector2(578, -546)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shadow2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(581, 200), Vector2(581, 512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sputt"]
+_data = {
+"clouse": SubResource("Animation_k5qpt"),
+"open": SubResource("Animation_1jxvt")
+}
 
 [node name="menu" type="Node2D"]
 script = ExtResource("1_1uo4p")
 
+[node name="ShestScreen" type="Sprite2D" parent="."]
+position = Vector2(576, 324)
+scale = Vector2(8, 6.75)
+texture = ExtResource("2_ygvke")
+
 [node name="play" type="Button" parent="."]
-offset_left = 408.0
-offset_top = 136.0
-offset_right = 724.0
-offset_bottom = 234.0
+offset_left = 507.0
+offset_top = 199.0
+offset_right = 635.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 50
+flat = true
+
+[node name="ButtonPlay" type="Sprite2D" parent="play"]
+position = Vector2(64, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("3_vgikt")
+
+[node name="quit" type="Button" parent="."]
+offset_left = 251.0
+offset_top = 199.0
+offset_right = 379.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 50
+flat = true
+
+[node name="ButtonQuit" type="Sprite2D" parent="quit"]
+position = Vector2(64, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("5_ad8jk")
+
+[node name="tutorial" type="Button" parent="."]
+offset_left = 760.0
+offset_top = 199.0
+offset_right = 888.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 50
+flat = true
+
+[node name="ButtonTutorial" type="Sprite2D" parent="tutorial"]
+position = Vector2(64, 96)
+scale = Vector2(8, 8)
+texture = ExtResource("4_0tj82")
+
+[node name="play2" type="Button" parent="."]
+offset_left = 1424.0
+offset_top = 152.0
+offset_right = 1740.0
+offset_bottom = 250.0
 theme_override_font_sizes/font_size = 50
 text = "play"
 
-[node name="quit" type="Button" parent="."]
-offset_left = 404.0
-offset_top = 418.0
-offset_right = 721.0
-offset_bottom = 516.0
+[node name="quit2" type="Button" parent="."]
+offset_left = 1420.0
+offset_top = 434.0
+offset_right = 1737.0
+offset_bottom = 532.0
 theme_override_font_sizes/font_size = 50
 text = "quit"
 
-[node name="tutorial" type="Button" parent="."]
-offset_left = 408.0
-offset_top = 282.0
-offset_right = 725.0
-offset_bottom = 380.0
+[node name="tutorial2" type="Button" parent="."]
+offset_left = 1424.0
+offset_top = 298.0
+offset_right = 1741.0
+offset_bottom = 396.0
 theme_override_font_sizes/font_size = 50
 text = "tutorial"
 
+[node name="ShestScreen2" type="Sprite2D" parent="."]
+position = Vector2(1314, 339)
+texture = ExtResource("2_ygvke")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o8gn3")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_tqb4g")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_8rhck")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="NameGame" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(570, 111)
+scale = Vector2(2, 2)
+texture = ExtResource("8_6r4uq")
+
+[node name="NameText" type="Sprite2D" parent="."]
+position = Vector2(569, 101)
+scale = Vector2(2, 2)
+texture = ExtResource("9_y2w2m")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+
+[node name="Shadow" type="Sprite2D" parent="Node2D"]
+position = Vector2(578, -546)
+scale = Vector2(98.75, 68.1875)
+texture = ExtResource("10_6lkd7")
+
+[node name="Shadow2" type="Sprite2D" parent="Node2D"]
+position = Vector2(581, 512)
+scale = Vector2(98.75, 68.1875)
+texture = ExtResource("10_6lkd7")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+"": SubResource("AnimationLibrary_sputt")
+}
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_chbqw")
+volume_db = -15.0
+autoplay = true
+bus = &"Music"
+
+[connection signal="mouse_entered" from="play" to="." method="_on_play_mouse_entered"]
+[connection signal="mouse_exited" from="play" to="." method="_on_play_mouse_exited"]
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+[connection signal="mouse_entered" from="quit" to="." method="_on_quit_mouse_entered"]
+[connection signal="mouse_exited" from="quit" to="." method="_on_quit_mouse_exited"]
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+[connection signal="mouse_entered" from="tutorial" to="." method="_on_tutorial_mouse_entered"]
+[connection signal="mouse_exited" from="tutorial" to="." method="_on_tutorial_mouse_exited"]
 [connection signal="pressed" from="tutorial" to="." method="_on_tutorial_pressed"]

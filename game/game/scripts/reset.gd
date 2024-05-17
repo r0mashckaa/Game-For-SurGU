@@ -24,23 +24,35 @@ func _move():
 
 func _on_resum_pressed():
 	_update()
+	$AudioStreamPlayer.play()
+	await get_tree().create_timer(0.2).timeout
 	get_tree().reload_current_scene()
 	Global.reset_player = false
 	Global.quantity_call_mob = 1
 	Global.quantity_mob = 0
 
 func _on_quit_pressed():
+	$AudioStreamPlayer.play()
+	await get_tree().create_timer(0.2).timeout
 	get_tree().quit()
 
 func _update():
 	Global.player_die = false
 	Global.reset = false
 	Global.xod_player = false
+	Global.move = false
 	Global.player_xp = 3
 	Global.move_mob = 0
 	Global.nomber_mob = 1
 	Global.wave = 0
 	Global.coin = 0
+	Global.shest = false
+	Global.shild_count = 0
+	Global.shot_count = 0
+	Global.coin_count = 0
+	Global.count_bonus = 0
+	Global.bonuses = ["","",""]
+	Global.bonuses_counts = [0, 0, 0]
 	Global.last_mob = 0
 	Global.spawner = false
 	#Global.label = true
@@ -55,6 +67,8 @@ func _update():
 
 func _on_menu_pressed():
 	_update()
+	$AudioStreamPlayer.play()
+	await get_tree().create_timer(0.2).timeout
 	Global.reset_player = false
 	Global.quantity_call_mob = 1
 	Global.quantity_mob = 0

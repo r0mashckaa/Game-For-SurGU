@@ -1,21 +1,100 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8b6mvf1t3ufr"]
+[gd_scene load_steps=49 format=3 uid="uid://b8b6mvf1t3ufr"]
 
 [ext_resource type="Script" path="res://scripts/mob.gd" id="1_orrr8"]
 [ext_resource type="PackedScene" uid="uid://favojm2e332h" path="res://nodes/coin.tscn" id="2_csjcl"]
 [ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="2_kfa2v"]
+[ext_resource type="PackedScene" uid="uid://bhrp6ifilnw0g" path="res://nodes/bonus.tscn" id="3_rpn7q"]
 [ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="3_rwufx"]
+[ext_resource type="PackedScene" uid="uid://2u6hsw2ie8ty" path="res://nodes/call_mob.tscn" id="4_w8otn"]
 [ext_resource type="Texture2D" uid="uid://cql56nqopbpje" path="res://sprites/mobs/necromant.png" id="5_b7nyu"]
 [ext_resource type="Texture2D" uid="uid://d7orulwfu07p" path="res://sprites/mobs/golem.png" id="6_1enhb"]
 [ext_resource type="Texture2D" uid="uid://dhpw8vi6ijcr2" path="res://sprites/mobs/ghost.png" id="6_xlkpw"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="7_ns2xs"]
 [ext_resource type="Texture2D" uid="uid://g1k0jv4fqaub" path="res://sprites/mobs/knight.png" id="7_t3ihs"]
+[ext_resource type="AudioStream" uid="uid://clnkv7f87pl11" path="res://sounds/hit.wav" id="11_j0m2m"]
+[ext_resource type="Texture2D" uid="uid://dii8ipcjp782" path="res://sprites/mobs/armor.png" id="11_weujs"]
+[ext_resource type="Texture2D" uid="uid://deml5wij6kxol" path="res://sprites/mobs/barrel.png" id="12_1hwd3"]
+[ext_resource type="Texture2D" uid="uid://ce43slpnt3v33" path="res://sprites/mobs/slime.png" id="13_b1cfs"]
+[ext_resource type="Texture2D" uid="uid://d22dcyoi1tg8y" path="res://sprites/boom.png" id="14_lctm7"]
+[ext_resource type="Texture2D" uid="uid://cnwbamc46mx23" path="res://sprites/mobs/skelet.png" id="14_o8jr4"]
+[ext_resource type="AudioStream" uid="uid://dj0errhn7jplc" path="res://sounds/boom.wav" id="15_adh6q"]
+[ext_resource type="Texture2D" uid="uid://j6kxt2kc5n8d" path="res://sprites/mobs/mag.png" id="16_aixmb"]
+[ext_resource type="Texture2D" uid="uid://7jcyph3uukwi" path="res://sprites/mobs/bat.png" id="16_u16j0"]
+[ext_resource type="Texture2D" uid="uid://cosilhpxpj0y1" path="res://sprites/mobs/vampire.png" id="17_ras3c"]
+[ext_resource type="Texture2D" uid="uid://cms6a5ntrjnmp" path="res://sprites/magic.png" id="19_2f0hy"]
+[ext_resource type="AudioStream" uid="uid://b7n8a0uljln64" path="res://sounds/player_hit.wav" id="22_wb4tp"]
+[ext_resource type="Texture2D" uid="uid://b1l88b1010p7c" path="res://sprites/spark.png" id="23_c5shu"]
+[ext_resource type="AudioStream" uid="uid://cpjwkm7lyqaio" path="res://sounds/spawn.wav" id="25_dkuc4"]
+[ext_resource type="AudioStream" uid="uid://c5312pjmln2jq" path="res://sounds/teleport.wav" id="26_do1ef"]
+[ext_resource type="AudioStream" uid="uid://jyq0lky4415b" path="res://sounds/hit_bat.wav" id="27_hgcsk"]
+[ext_resource type="AudioStream" uid="uid://b7jrwmqtwrl0h" path="res://sounds/change_stage.wav" id="28_61gio"]
+[ext_resource type="AudioStream" uid="uid://c7ual3tjvjupw" path="res://sounds/vampire_stage.wav" id="29_hx0te"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vnjdn"]
 size = Vector2(14, 14)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6wbg"]
+atlas = ExtResource("12_1hwd3")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy7dp"]
+atlas = ExtResource("12_1hwd3")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_orket"]
+atlas = ExtResource("12_1hwd3")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8s5vq"]
+atlas = ExtResource("12_1hwd3")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0sqg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6wbg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy7dp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_orket")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8s5vq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e2tfm"]
+particle_flag_disable_z = true
+gravity = Vector3(-50, 0, 0)
+orbit_velocity_min = -357.89
+orbit_velocity_max = -231.58
+
+[sub_resource type="Animation" id="Animation_o17r7"]
+resource_name = "hit"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mob/Platform/mobs:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_d4vwj"]
 resource_name = "move"
-length = 0.5
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -23,10 +102,26 @@ tracks/0/path = NodePath("mob/Platform:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4),
+"times": PackedFloat32Array(0, 0.3, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(0, -3), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7fx1f"]
+resource_name = "shadow"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shadow:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1.5, 1.5), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_vm6ax"]
@@ -48,24 +143,109 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_krcnl"]
 _data = {
+"hit": SubResource("Animation_o17r7"),
 "move": SubResource("Animation_d4vwj"),
+"shadow": SubResource("Animation_7fx1f"),
 "shake": SubResource("Animation_vm6ax")
 }
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3365w"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 60.0
+radial_accel_max = 60.0
+scale_min = 0.3
+scale_max = 0.8
+
+[sub_resource type="Animation" id="Animation_bp0yn"]
+resource_name = "hit"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mob/Platform/mobs:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5sgpo"]
+_data = {
+"hit": SubResource("Animation_bp0yn")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l25b7"]
+emission_shape = 1
+emission_sphere_radius = 15.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+angular_velocity_min = -250.0
+angular_velocity_max = 250.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 20.0
+radial_accel_max = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ls1sq"]
+size = Vector2(40, 40)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yb1b4"]
+emission_shape = 2
+emission_sphere_radius = 12.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 2.0
+orbit_velocity_max = 2.0
+radial_accel_min = 20.0
+radial_accel_max = 20.0
+scale_min = 0.5
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_prsn5"]
+emission_shape = 2
+emission_sphere_radius = 8.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = -20.0
+radial_accel_max = -20.0
+scale_min = 0.5
 
 [node name="mob" type="Node2D" groups=["enemies"]]
 scale = Vector2(0.9, 0.9)
 script = ExtResource("1_orrr8")
 coin = ExtResource("2_csjcl")
+bonus = ExtResource("3_rpn7q")
+call_mob = ExtResource("4_w8otn")
 
 [node name="Shadow" type="Sprite2D" parent="."]
+visible = false
 modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
 position = Vector2(0, 3.33333)
 texture = ExtResource("3_rwufx")
+
+[node name="enemy" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
+shape = SubResource("RectangleShape2D_vnjdn")
 
 [node name="mob" type="Node2D" parent="."]
 
 [node name="Shadow" type="Sprite2D" parent="mob"]
 modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
 position = Vector2(0, 3.33333)
 texture = ExtResource("3_rwufx")
 
@@ -80,7 +260,6 @@ position = Vector2(0, -4)
 texture = ExtResource("5_b7nyu")
 
 [node name="Ghost" type="Sprite2D" parent="mob/Platform/mobs"]
-visible = false
 position = Vector2(0, -4)
 texture = ExtResource("6_xlkpw")
 
@@ -90,6 +269,7 @@ position = Vector2(0, -4)
 texture = ExtResource("7_ns2xs")
 
 [node name="Knight" type="Sprite2D" parent="mob/Platform/mobs"]
+visible = false
 position = Vector2(2, -4)
 texture = ExtResource("7_t3ihs")
 
@@ -98,11 +278,49 @@ visible = false
 position = Vector2(1, -4)
 texture = ExtResource("6_1enhb")
 
-[node name="enemy" type="Area2D" parent="."]
-collision_mask = 3
+[node name="Armor" type="Sprite2D" parent="mob/Platform/mobs"]
+visible = false
+position = Vector2(1, -4)
+texture = ExtResource("11_weujs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
-shape = SubResource("RectangleShape2D_vnjdn")
+[node name="barrel" type="AnimatedSprite2D" parent="mob/Platform/mobs"]
+visible = false
+position = Vector2(-1, -4)
+sprite_frames = SubResource("SpriteFrames_l0sqg")
+autoplay = "default"
+frame_progress = 0.0176038
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="mob/Platform/mobs/barrel"]
+position = Vector2(-2.5, -7.5)
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_e2tfm")
+
+[node name="Slime" type="Sprite2D" parent="mob/Platform/mobs"]
+visible = false
+position = Vector2(0, -4)
+texture = ExtResource("13_b1cfs")
+
+[node name="Skelet" type="Sprite2D" parent="mob/Platform/mobs"]
+visible = false
+position = Vector2(2, -4)
+texture = ExtResource("14_o8jr4")
+
+[node name="Mag" type="Sprite2D" parent="mob/Platform/mobs"]
+visible = false
+position = Vector2(2, -4)
+texture = ExtResource("16_aixmb")
+
+[node name="vampire" type="Node2D" parent="mob/Platform/mobs"]
+visible = false
+
+[node name="Vampire" type="Sprite2D" parent="mob/Platform/mobs/vampire"]
+position = Vector2(0, -4)
+texture = ExtResource("17_ras3c")
+
+[node name="Bat" type="Sprite2D" parent="mob/Platform/mobs/vampire"]
+position = Vector2(-1, -3)
+texture = ExtResource("16_u16j0")
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -121,9 +339,97 @@ libraries = {
 "": SubResource("AnimationLibrary_krcnl")
 }
 
-[node name="Timer" type="Timer" parent="."]
+[node name="spawn" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
 
+[node name="teleport" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 14
+process_material = SubResource("ParticleProcessMaterial_3365w")
+texture = ExtResource("19_2f0hy")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="hit" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5sgpo")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_j0m2m")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="boom2" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_l25b7")
+texture = ExtResource("14_lctm7")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="boom" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_adh6q")
+volume_db = -10.0
+pitch_scale = 1.5
+bus = &"Sound"
+
+[node name="barrel" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="barrel"]
+shape = SubResource("RectangleShape2D_ls1sq")
+disabled = true
+
+[node name="vampire_togle" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_yb1b4")
+texture = ExtResource("23_c5shu")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+
+[node name="vampire" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_prsn5")
+texture = ExtResource("23_c5shu")
+explosiveness = 0.5
+
+[node name="player_hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_wb4tp")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="spawn2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_dkuc4")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="tp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_do1ef")
+volume_db = -15.0
+bus = &"Sound"
+
+[node name="hit_bat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_hgcsk")
+volume_db = -10.0
+bus = &"Sound"
+
+[node name="change_stage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("28_61gio")
+volume_db = -10.0
+bus = &"Sound"
+
+[node name="vampire_stage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("29_hx0te")
+volume_db = -20.0
+bus = &"Sound"
+
 [connection signal="area_entered" from="enemy" to="." method="_on_enemy_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="spawn" to="." method="_on_spawn_timeout"]

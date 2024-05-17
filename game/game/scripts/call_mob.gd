@@ -174,5 +174,5 @@ func _on_call_mob_area_entered(area):
 		await get_tree().create_timer(0.1).timeout
 		xp -= 1
 		#print(1)
-	if area.name == "player":
+	if area.name == "player" || area.name == "tnt":
 		xp -= 1

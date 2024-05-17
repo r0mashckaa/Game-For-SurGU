@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxyuaeb1t6kig"]
+[gd_scene load_steps=6 format=3 uid="uid://cxyuaeb1t6kig"]
 
 [ext_resource type="Texture2D" uid="uid://6w5dm4vgumh2" path="res://sprites/trap.png" id="1_kpn0r"]
 [ext_resource type="Script" path="res://scripts/trap.gd" id="1_rv1q3"]
+[ext_resource type="AudioStream" uid="uid://dyumv3foyx1b1" path="res://sounds/trap_install.wav" id="3_28wvo"]
+[ext_resource type="AudioStream" uid="uid://bamhfnvm1qbhu" path="res://sounds/trap_click.wav" id="4_6qd5y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52y31"]
 size = Vector2(14, 12)
@@ -18,5 +20,17 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="trap"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_52y31")
+
+[node name="install" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_28wvo")
+volume_db = -5.0
+pitch_scale = 1.1
+bus = &"Sound"
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_6qd5y")
+volume_db = -5.0
+pitch_scale = 1.4
+bus = &"Sound"
 
 [connection signal="area_entered" from="trap" to="." method="_on_trap_area_entered"]

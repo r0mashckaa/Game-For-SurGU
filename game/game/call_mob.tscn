@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://hl5mg17c7i23"]
+
+[ext_resource type="Script" path="res://scripts/call_mob.gd" id="1_p613g"]
+[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="2_3ghi3"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="2_j0p6x"]
+[ext_resource type="Texture2D" uid="uid://cnwbamc46mx23" path="res://sprites/mobs/skelet.png" id="3_soacr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hffe"]
+size = Vector2(14, 14)
+
+[sub_resource type="Animation" id="Animation_5shos"]
+resource_name = "move"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform/Platform:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -3.33333), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_in2ds"]
+_data = {
+"move": SubResource("Animation_5shos")
+}
+
+[node name="call_mob" type="Node2D" groups=["call_mobs"]]
+scale = Vector2(0.9, 0.9)
+script = ExtResource("1_p613g")
+
+[node name="platform" type="Node2D" parent="."]
+
+[node name="Shadow" type="Sprite2D" parent="platform"]
+modulate = Color(1, 1, 1, 0.392157)
+position = Vector2(0, 3)
+texture = ExtResource("2_j0p6x")
+
+[node name="Platform" type="Sprite2D" parent="platform"]
+texture = ExtResource("2_3ghi3")
+
+[node name="Skelet" type="Sprite2D" parent="platform/Platform"]
+position = Vector2(2, -4)
+texture = ExtResource("3_soacr")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = -29.0
+offset_right = 11.0
+offset_bottom = -6.0
+
+[node name="call_mob" type="Area2D" parent="."]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="call_mob"]
+shape = SubResource("RectangleShape2D_2hffe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_in2ds")
+}
+
+[connection signal="area_entered" from="call_mob" to="." method="_on_call_mob_area_entered"]

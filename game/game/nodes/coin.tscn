@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://favojm2e332h"]
+[gd_scene load_steps=12 format=3 uid="uid://favojm2e332h"]
 
-[ext_resource type="Script" path="res://coin.gd" id="1_wfjwd"]
+[ext_resource type="Script" path="res://scripts/coin.gd" id="1_o5l3h"]
 [ext_resource type="Texture2D" uid="uid://dt2oh8d87fgpg" path="res://sprites/coin.png" id="2_j3q7p"]
 [ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="2_qndep"]
+[ext_resource type="AudioStream" uid="uid://yqnm4bfltvtp" path="res://sounds/coin.wav" id="4_cj7nv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7m7pl"]
 radius = 6.0
@@ -41,19 +42,110 @@ _data = {
 "coin": SubResource("Animation_natro")
 }
 
+[sub_resource type="Animation" id="Animation_um2lu"]
+resource_name = "blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_1kf5a"]
+resource_name = "blink_slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Coin:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_ardrs"]
+resource_name = "colltction"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shadow:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Coin:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("coin/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eea5f"]
+_data = {
+"blink": SubResource("Animation_um2lu"),
+"blink_slow": SubResource("Animation_1kf5a"),
+"colltction": SubResource("Animation_ardrs")
+}
+
 [node name="coin" type="Node2D"]
 scale = Vector2(0.7, 0.7)
-script = ExtResource("1_wfjwd")
+script = ExtResource("1_o5l3h")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
 position = Vector2(0, 7.14286)
-scale = Vector2(0.429457, 0.429457)
+scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_qndep")
 offset = Vector2(0, -2)
 
 [node name="Coin" type="Sprite2D" parent="."]
-position = Vector2(0, -0.883717)
 texture = ExtResource("2_j3q7p")
 
 [node name="coin" type="Area2D" parent="."]
@@ -66,6 +158,16 @@ shape = SubResource("CircleShape2D_7m7pl")
 autoplay = "coin"
 libraries = {
 "": SubResource("AnimationLibrary_d41ea")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_cj7nv")
+volume_db = -8.0
+bus = &"Sound"
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eea5f")
 }
 
 [connection signal="area_entered" from="coin" to="." method="_on_coin_area_entered"]

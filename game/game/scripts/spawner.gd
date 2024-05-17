@@ -9,7 +9,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	if Global.nomber_mob <= Global.rand && Global.nomber_mob > Global.last_mob && Global.spawn == true:
+	if Global.nomber_mob <= Global.rand && Global.nomber_mob > Global.last_mob && Global.spawn == true && Global.spawn_mob == Global.nomber_mob:
 		var temp_mob = mob.instantiate()
 		$"../game".add_child(temp_mob)
 		var pos

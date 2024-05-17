@@ -1,11 +1,26 @@
-[gd_scene load_steps=30 format=3 uid="uid://duqqi388cfs8f"]
+[gd_scene load_steps=64 format=3 uid="uid://duqqi388cfs8f"]
 
 [ext_resource type="Script" path="res://scripts/enviroment.gd" id="1_j34ru"]
-[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="1_m7vyp"]
+[ext_resource type="PackedScene" uid="uid://b8b6mvf1t3ufr" path="res://nodes/mob.tscn" id="2_absys"]
+[ext_resource type="Texture2D" uid="uid://dcgmern2vj4it" path="res://sprites/statue.png" id="2_de0rs"]
 [ext_resource type="Texture2D" uid="uid://u0y1hn2kbadw" path="res://sprites/dummy.png" id="2_j34sb"]
+[ext_resource type="Texture2D" uid="uid://c2gmudvsf7kl6" path="res://sprites/platform.png" id="2_rowbe"]
 [ext_resource type="Texture2D" uid="uid://disfxx2jeufh1" path="res://sprites/column.png" id="3_jlpef"]
 [ext_resource type="Texture2D" uid="uid://c4vjygnt41fro" path="res://sprites/vase.png" id="4_kdnwp"]
+[ext_resource type="Texture2D" uid="uid://binmg845p8m2d" path="res://sprites/plant.png" id="6_x2yif"]
 [ext_resource type="Texture2D" uid="uid://cmtyutm4xv8ic" path="res://sprites/spikes.png" id="7_u0316"]
+[ext_resource type="Texture2D" uid="uid://c88vqvavbw0j3" path="res://sprites/slime_vase.png" id="7_vhel6"]
+[ext_resource type="AudioStream" uid="uid://b33i5oyt540ey" path="res://sounds/block.wav" id="8_5qcaj"]
+[ext_resource type="Texture2D" uid="uid://mgmhf344h8hp" path="res://sprites/tombstone.png" id="8_hnyr1"]
+[ext_resource type="AudioStream" uid="uid://davsgwai8cv1f" path="res://sounds/cut.wav" id="9_a3c8k"]
+[ext_resource type="AudioStream" uid="uid://clmhwen4daono" path="res://sounds/pot.wav" id="10_ebu4g"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="10_uou6c"]
+[ext_resource type="AudioStream" uid="uid://n4nhp04rou4t" path="res://sounds/vase.wav" id="11_vx7tg"]
+[ext_resource type="AudioStream" uid="uid://coyphhi3bs6mc" path="res://sounds/slime_vase.wav" id="17_33qys"]
+[ext_resource type="AudioStream" uid="uid://1rcdji8hrb2m" path="res://sounds/stombstone.wav" id="18_r28h8"]
+[ext_resource type="AudioStream" uid="uid://blhwl26lwpigk" path="res://sounds/spikes.wav" id="19_0etcs"]
+[ext_resource type="Texture2D" uid="uid://b6q8jyjwyvmi4" path="res://sprites/piece.png" id="19_xrl2t"]
+[ext_resource type="Texture2D" uid="uid://ccyxxhhmci10g" path="res://sprites/leaf.png" id="21_b1igi"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oiigv"]
 load_path = "res://.godot/imported/spikess.png-73a57b17fac5d46825cd5fda51fd0ced.ctex"
@@ -27,8 +42,112 @@ _bundled = {
 "version": 3
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpsn5"]
+atlas = ExtResource("6_x2yif")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htmju"]
+atlas = ExtResource("6_x2yif")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5brjk"]
+atlas = ExtResource("6_x2yif")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vgudn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htmju")
+}],
+"loop": true,
+"name": &"plant",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5brjk")
+}],
+"loop": true,
+"name": &"pot",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m8omy"]
+atlas = ExtResource("7_vhel6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boltr"]
+atlas = ExtResource("7_vhel6")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i5x1o"]
+atlas = ExtResource("7_vhel6")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4o0os"]
+atlas = ExtResource("7_vhel6")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c757s"]
+atlas = ExtResource("7_vhel6")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0s6l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m8omy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boltr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i5x1o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4o0os")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c757s")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijo2c"]
+atlas = ExtResource("8_hnyr1")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6tn6"]
+atlas = ExtResource("8_hnyr1")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wra6t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijo2c")
+}],
+"loop": true,
+"name": &"new",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6tn6")
+}],
+"loop": true,
+"name": &"old",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fvow2"]
 size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ns7q8"]
+size = Vector2(12, 12)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ptvfd"]
 atlas = ExtResource("7_u0316")
@@ -170,37 +289,202 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0to0h"]
 size = Vector2(12, 12)
 
+[sub_resource type="Animation" id="Animation_3xfsa"]
+resource_name = "pot"
+length = 0.9
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("decors/enviroment/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("pot:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("decors/Plant:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_qchn7"]
+resource_name = "shake"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("decors:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x012j"]
+resource_name = "vase"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("vase:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("decors/enviroment/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("decors/Vase:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20ybh"]
+_data = {
+"pot": SubResource("Animation_3xfsa"),
+"shake": SubResource("Animation_qchn7"),
+"vase": SubResource("Animation_x012j")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_baw23"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+radial_accel_min = 10.0
+radial_accel_max = 15.0
+scale_min = 0.3
+scale_max = 0.7
+
 [node name="enviroment" type="Node2D"]
 script = ExtResource("1_j34ru")
 thorns = SubResource("PackedScene_ysp8r")
+mob = ExtResource("2_absys")
 
 [node name="decors" type="Node2D" parent="." groups=["decors"]]
+y_sort_enabled = true
 
 [node name="Platform" type="Sprite2D" parent="decors"]
 visible = false
-texture = ExtResource("1_m7vyp")
+texture = ExtResource("2_rowbe")
 
 [node name="Dummy" type="Sprite2D" parent="decors/Platform"]
 position = Vector2(0, -4)
 texture = ExtResource("2_j34sb")
 
-[node name="Column" type="Sprite2D" parent="decors"]
+[node name="Statue" type="Sprite2D" parent="decors"]
 visible = false
+position = Vector2(0, -1)
+texture = ExtResource("2_de0rs")
+
+[node name="Column" type="Sprite2D" parent="decors"]
 texture = ExtResource("3_jlpef")
 
 [node name="Vase" type="Sprite2D" parent="decors"]
 visible = false
 texture = ExtResource("4_kdnwp")
 
+[node name="Plant1" type="Sprite2D" parent="decors"]
+visible = false
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_vpsn5")
+
+[node name="Plant" type="AnimatedSprite2D" parent="decors"]
+visible = false
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_vgudn")
+animation = &"plant"
+
+[node name="slime" type="AnimatedSprite2D" parent="decors"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_l0s6l")
+animation = &"idle"
+autoplay = "idle"
+frame = 2
+frame_progress = 0.610626
+
+[node name="tombstone" type="AnimatedSprite2D" parent="decors"]
+visible = false
+sprite_frames = SubResource("SpriteFrames_wra6t")
+animation = &"old"
+autoplay = "new"
+
 [node name="enviroment" type="Area2D" parent="decors"]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="decors/enviroment"]
 shape = SubResource("RectangleShape2D_fvow2")
+
+[node name="Shadow" type="Sprite2D" parent="decors"]
+modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
+position = Vector2(0, -1)
+texture = ExtResource("10_uou6c")
+offset = Vector2(0, 2)
+
+[node name="block" type="Area2D" parent="decors"]
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="decors/block"]
+shape = SubResource("RectangleShape2D_ns7q8")
+disabled = true
 
 [node name="spikes" type="Node2D" parent="."]
 
 [node name="spike" type="AnimatedSprite2D" parent="spikes"]
 visible = false
+z_index = -1
 sprite_frames = SubResource("SpriteFrames_wkjbf")
 animation = &"ready"
 autoplay = "off"
@@ -212,4 +496,66 @@ collision_layer = 2
 shape = SubResource("RectangleShape2D_0to0h")
 disabled = true
 
+[node name="block" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_5qcaj")
+volume_db = -15.0
+pitch_scale = 0.8
+bus = &"Sound"
+
+[node name="cut" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_a3c8k")
+volume_db = -20.0
+pitch_scale = 1.1
+bus = &"Sound"
+
+[node name="pot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ebu4g")
+volume_db = -10.0
+pitch_scale = 0.9
+bus = &"Sound"
+
+[node name="vase" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_vx7tg")
+bus = &"Sound"
+
+[node name="slime_vase" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_33qys")
+volume_db = -3.0
+pitch_scale = 0.8
+bus = &"Sound"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_20ybh")
+}
+
+[node name="tomb" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_r28h8")
+pitch_scale = 1.2
+bus = &"Sound"
+
+[node name="piece" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_baw23")
+texture = ExtResource("19_xrl2t")
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+
+[node name="leaf" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 10
+process_material = SubResource("ParticleProcessMaterial_baw23")
+texture = ExtResource("21_b1igi")
+one_shot = true
+speed_scale = 4.0
+explosiveness = 1.0
+
+[node name="spikes2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("19_0etcs")
+volume_db = -25.0
+bus = &"Sound"
+
 [connection signal="area_entered" from="decors/enviroment" to="." method="_on_enviroment_area_entered"]
+[connection signal="area_entered" from="decors/block" to="." method="_on_blok_area_entered"]

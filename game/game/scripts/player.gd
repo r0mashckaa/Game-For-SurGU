@@ -6,9 +6,13 @@ extends Node2D
 var lable: bool = true
 var lable_move: bool = true
 var is_move = false
+#var move = false
 var direct = 1
 var hit: bool
+var can_xod = true
 @export var xp_max = 3
+@export var stan = false
+@export var can_move = true
 var start_position
 var anim_position
 var shift_x
@@ -72,6 +76,13 @@ func _label():
 		lable_move = true
 		return
 
+func _die():
+	Global.player_die = true
+	$"../../music".stop()
+	$"../../die".play()
+	$"../../die_icon".visible = true
+	global_position = $"../../die_icon/AbilityIcon".global_position
+
 func _physics_process(_delta):
 	_label()
 	#$Shadow.global_position = sprite.global_position
@@ -89,11 +100,10 @@ func _physics_process(_delta):
 		shift_x = 0
 		shift_y = 0
 		hit = false
-	if Global.player_xp <= 0 && Global.place == "game":
-		Global.player_die = true
+	if Global.player_xp <= 0 && Global.place == "game" && Global.player_die == false:
+		_die()
 		#print(Xod.player_die)
 		#queue_free()
-		global_position = Vector2(200, 104)
 		#Global.player_xp = xp_max
 	if is_move == false:
 		return
@@ -104,7 +114,8 @@ func _physics_process(_delta):
 	if sprite.global_position != global_position:
 		return
 	start_position = sprite.global_position
-	#await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1).timeout
+	can_xod = true
 	Global.xod_player = false
 
 func _flip():
@@ -114,6 +125,13 @@ func _flip():
 		$player/Platform/Player.flip_h = true
 
 func _process(_delta):
+	#print(can_xod)
+	#print(is_move)
+	#print(stan)
+	if can_move == false:
+		return
+	if Global.bomba == true:
+		return
 	if Global.spawner == true:
 		return
 	if Global.player_xp > xp_max:
@@ -125,13 +143,26 @@ func _process(_delta):
 	if is_move == true:
 		return
 	if Global.xod_player == false:
+		Global.move = false
 		hit = false
 		return
+	#if stan == true:
+		#Global.xod_player = false
+		#stan = false
+		#return
+	#$xod.stop()
+	if Global.move == true: # can call bag
+		return # can call bag
+#	if hit == true:
+#		return
+#	can_xod = true
 	if Input.is_action_just_pressed("click"):
 		if veloc == Vector2.RIGHT:
 			direct = 1
 		elif veloc == Vector2.LEFT:
 			direct = -1
+		if veloc == Vector2.ZERO:
+			return
 		_move(veloc)
 		Global.label = true
 	elif Input.is_action_just_pressed("down"):
@@ -151,7 +182,17 @@ func _process(_delta):
 	_flip()
 
 func _move(direction: Vector2):
-	var current_tile: Vector2i = tile_map.local_to_map(global_position)
+	is_move = true
+	if stan == true:
+		Global.xod_player = false
+		$RayCast2D/player/CollisionShape2D.disabled = true
+		$slime.play("slime_stan")
+		stan = false
+		return
+	else:
+		$RayCast2D/player/CollisionShape2D.disabled = false
+	Global.move = true # can call bag
+	var current_tile: Vector2 = tile_map.local_to_map(global_position)
 	#print(current_tile)
 	var target_tile: Vector2 = Vector2(current_tile.x + direction.x, current_tile.y + direction.y)
 	#prints(current_tile, target_tile)
@@ -167,31 +208,51 @@ func _move(direction: Vector2):
 			$RayCast2D/player.global_position = raycast.global_position + direction * 16
 			anim_position = Vector2(start_position * direction * 5)
 			await get_tree().create_timer(0.1).timeout
-			Global.xod_player = false
 			anim_position = Vector2(global_position)
 			$RayCast2D/player.global_position = raycast.global_position
 			await get_tree().create_timer(0.1).timeout
+			if can_xod == true:
+				Global.xod_player = false
+			else: Global.move = false # can call bag
+			#can_xod = true
 			hit = false
 			sprite.global_position = global_position
 			return
 		is_move = true
+		if target_tile != current_tile:
+			$AudioStreamPlayer.play()
 		global_position = tile_map.map_to_local(target_tile)
 		sprite.global_position = tile_map.map_to_local(current_tile)
+		$xod.start()
 		#await get_tree().create_timer(0.1).timeout
+	else: Global.move = false # can call bag
 	#print(Xod.xod_player)
 
-
 func _on_press_area_entered(area):
-	if area.name == "spikes":
+	if area.name == "spikes"|| area.name == "barrel":
+		if Global.shild == true:
+			return
 		Global.player_xp -= 1
-
-
 
 func _on_player_area_exited(area):
 	if area.name == "trap":
 		Global.can_trap = true
-
+	if area.name == "blok":
+		#await get_tree().create_timer(0.2).timeout
+		#can_xod = true
+		pass
 
 func _on_player_area_entered(area):
+	if area.name == "block":
+		can_xod = false
+	elif area.name == "enviroment":
+		can_xod = true
+	elif area.name == "enemy":
+		can_xod = true
 	if area.name == "trap":
 		Global.can_trap = false
+
+func _on_timer_timeout():
+	#print(1)
+	Global.xod_player = true
+	Global.move = false

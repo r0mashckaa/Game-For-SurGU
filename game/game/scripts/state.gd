@@ -12,10 +12,26 @@ var coin_cout: int
 # layer 7 - label
 # layer
 
-func _physics_process(_delta):
+func _ready():
 	xp_cout = Global.player_xp
 	wave_cout = Global.wave
 	coin_cout = Global.coin
-	$Xpstatuia/xp.text = str(xp_cout)
-	$Dummy/wave.text = str(wave_cout) #"wave: " + str(wave_cout)
-	$Coin/coin.text = str(coin_cout)
+
+func _physics_process(_delta):
+	if xp_cout < Global.player_xp:
+		$state.play("xp+")
+	elif xp_cout > Global.player_xp:
+		$state.play("xp-")
+	if wave_cout < Global.wave:
+		$state.play("wave+")
+		#$wave/wave2.play()
+	if coin_cout < Global.coin:
+		$state.play("coin+")
+	elif coin_cout > Global.coin:
+		$state.play("coin-")
+	xp_cout = Global.player_xp
+	wave_cout = Global.wave
+	coin_cout = Global.coin
+	$xp/xp.text = str(xp_cout)
+	$wave/wave.text = str(wave_cout) #"wave: " + str(wave_cout)
+	$coin/coin.text = str(coin_cout)

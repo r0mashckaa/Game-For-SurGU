@@ -1,0 +1,191 @@
+[gd_scene load_steps=15 format=3 uid="uid://bufhavqp1jpwl"]
+
+[ext_resource type="Script" path="res://scripts/bonus_control.gd" id="1_4ifqg"]
+[ext_resource type="Texture2D" uid="uid://ch7c3tn0pcwjp" path="res://sprites/bonuses.png" id="2_poufo"]
+
+[sub_resource type="Animation" id="Animation_55ppo"]
+resource_name = "blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bonus_control/bonus_1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_gwojd"]
+resource_name = "blink_slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bonus_control/bonus_1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nmg7h"]
+_data = {
+"blink": SubResource("Animation_55ppo"),
+"blink_slow": SubResource("Animation_gwojd")
+}
+
+[sub_resource type="Animation" id="Animation_mddg1"]
+resource_name = "blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bonus_2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_u3knw"]
+resource_name = "blink_slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bonus_2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g00ds"]
+_data = {
+"blink": SubResource("Animation_mddg1"),
+"blink_slow": SubResource("Animation_u3knw")
+}
+
+[sub_resource type="Animation" id="Animation_052bq"]
+resource_name = "blink"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../bonus_3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_qebe7"]
+resource_name = "blink_slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../bonus_3:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6f4rv"]
+_data = {
+"blink": SubResource("Animation_052bq"),
+"blink_slow": SubResource("Animation_qebe7")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrri4"]
+atlas = ExtResource("2_poufo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_so70v"]
+atlas = ExtResource("2_poufo")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ll6ln"]
+atlas = ExtResource("2_poufo")
+region = Rect2(32, 0, 16, 16)
+
+[node name="bonus_control" type="Node2D"]
+script = ExtResource("1_4ifqg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_nmg7h")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g00ds")
+}
+
+[node name="AnimationPlayer3" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimationPlayer2")
+libraries = {
+"": SubResource("AnimationLibrary_6f4rv")
+}
+
+[node name="bonus_1" type="Node2D" parent="."]
+
+[node name="factor_coin" type="Sprite2D" parent="bonus_1"]
+visible = false
+texture = SubResource("AtlasTexture_jrri4")
+
+[node name="one_shot" type="Sprite2D" parent="bonus_1"]
+visible = false
+texture = SubResource("AtlasTexture_so70v")
+
+[node name="shild" type="Sprite2D" parent="bonus_1"]
+visible = false
+texture = SubResource("AtlasTexture_ll6ln")
+
+[node name="bonus_2" type="Node2D" parent="."]
+position = Vector2(16, 0)
+
+[node name="factor_coin" type="Sprite2D" parent="bonus_2"]
+visible = false
+texture = SubResource("AtlasTexture_jrri4")
+
+[node name="one_shot" type="Sprite2D" parent="bonus_2"]
+visible = false
+texture = SubResource("AtlasTexture_so70v")
+
+[node name="shild" type="Sprite2D" parent="bonus_2"]
+visible = false
+texture = SubResource("AtlasTexture_ll6ln")
+
+[node name="bonus_3" type="Node2D" parent="."]
+position = Vector2(32, 0)
+
+[node name="factor_coin" type="Sprite2D" parent="bonus_3"]
+visible = false
+texture = SubResource("AtlasTexture_jrri4")
+
+[node name="one_shot" type="Sprite2D" parent="bonus_3"]
+visible = false
+texture = SubResource("AtlasTexture_so70v")
+
+[node name="shild" type="Sprite2D" parent="bonus_3"]
+visible = false
+texture = SubResource("AtlasTexture_ll6ln")

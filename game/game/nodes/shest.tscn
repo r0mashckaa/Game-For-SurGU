@@ -1,0 +1,171 @@
+[gd_scene load_steps=22 format=3 uid="uid://4tllfe6frxwj"]
+
+[ext_resource type="Script" path="res://scripts/shest.gd" id="1_tsarf"]
+[ext_resource type="Texture2D" uid="uid://cwb15jtorr71q" path="res://sprites/shest.png" id="2_2qcwi"]
+[ext_resource type="PackedScene" uid="uid://bhrp6ifilnw0g" path="res://nodes/bonus.tscn" id="2_tksso"]
+[ext_resource type="Texture2D" uid="uid://b68mccq5bi57b" path="res://sprites/shadow.png" id="3_nxfen"]
+[ext_resource type="Texture2D" uid="uid://b60io5ug7pi32" path="res://sprites/coin_bonus.png" id="4_ahbvm"]
+[ext_resource type="Texture2D" uid="uid://ch7c3tn0pcwjp" path="res://sprites/bonuses.png" id="5_qofbf"]
+[ext_resource type="Texture2D" uid="uid://dkxol8l3adflb" path="res://sprites/bonus_heart.png" id="7_rnol4"]
+[ext_resource type="AudioStream" uid="uid://bfck7oaxnv2n8" path="res://sounds/change_bonus.wav" id="8_b6u3t"]
+[ext_resource type="AudioStream" uid="uid://crrxsbq7rk83i" path="res://sounds/shest.wav" id="9_xq3k5"]
+[ext_resource type="AudioStream" uid="uid://c37smah6joc3w" path="res://sounds/music/shest.mp3" id="10_ja7d7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cmd42"]
+size = Vector2(14, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpfcn"]
+atlas = ExtResource("2_2qcwi")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_odu0d"]
+atlas = ExtResource("2_2qcwi")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uuscl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpfcn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_odu0d")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_atx77"]
+atlas = ExtResource("2_2qcwi")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uwyr"]
+atlas = ExtResource("5_qofbf")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0icy"]
+atlas = ExtResource("5_qofbf")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wi6j1"]
+atlas = ExtResource("5_qofbf")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="Animation" id="Animation_8x56n"]
+resource_name = "icon_down"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -9), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pa82k"]
+resource_name = "icon_up"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("icon:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -9)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qak4g"]
+_data = {
+"icon_down": SubResource("Animation_8x56n"),
+"icon_up": SubResource("Animation_pa82k")
+}
+
+[node name="shest" type="Node2D"]
+script = ExtResource("1_tsarf")
+bonus = ExtResource("2_tksso")
+
+[node name="decor" type="Node2D" parent="." groups=["decors"]]
+
+[node name="shest" type="Area2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shest"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_cmd42")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -180)
+sprite_frames = SubResource("SpriteFrames_uuscl")
+autoplay = "default"
+
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.392157)
+z_index = -1
+position = Vector2(0, 1)
+texture = ExtResource("3_nxfen")
+
+[node name="Shest" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+texture = SubResource("AtlasTexture_atx77")
+
+[node name="icon" type="Node2D" parent="."]
+scale = Vector2(0.7, 0.7)
+
+[node name="CoinBonus" type="Sprite2D" parent="icon"]
+visible = false
+position = Vector2(0, 2.38419e-07)
+texture = ExtResource("4_ahbvm")
+
+[node name="coin" type="Sprite2D" parent="icon"]
+visible = false
+texture = SubResource("AtlasTexture_4uwyr")
+
+[node name="shot" type="Sprite2D" parent="icon"]
+visible = false
+texture = SubResource("AtlasTexture_p0icy")
+
+[node name="shild" type="Sprite2D" parent="icon"]
+visible = false
+texture = SubResource("AtlasTexture_wi6j1")
+
+[node name="BonusHeart" type="Sprite2D" parent="icon"]
+visible = false
+position = Vector2(-3.8147e-06, 0)
+texture = ExtResource("7_rnol4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qak4g")
+}
+
+[node name="bonus" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_b6u3t")
+volume_db = -40.0
+bus = &"Sound"
+
+[node name="shest2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_xq3k5")
+pitch_scale = 0.9
+bus = &"Sound"
+
+[node name="music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_ja7d7")
+volume_db = -12.0
+bus = &"Music"
+
+[connection signal="area_entered" from="shest" to="." method="_on_shest_area_entered"]
